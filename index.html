@@ -22,7 +22,10 @@
     font-family: Arial, sans-serif;
 }
 body {
+    margin:0;
+    padding:0;
     background: black;
+    font-family: Arial;
 }
 </style>
 
@@ -33,11 +36,9 @@ body {
 <meta http-equiv="Expires" content="0">
 
 <style>
+
     body { 
-        font-family: Arial; 
         background: white; 
-        margin: 0; 
-        padding: 0; 
     }
 
     .video-box {
@@ -84,23 +85,45 @@ body {
     .download-btn:hover {
         background: darkred;
     }
+
+    /* No Internet Box */
+    #no-internet {
+        display: none;
+        text-align: center;
+        padding: 50px 20px;
+        font-size: 22px;
+        background: #fff2f2;
+        color: #b30000;
+        font-weight: bold;
+        border-radius: 10px;
+        margin: 20px;
+        border: 2px solid red;
+    }
+
 </style>
 
-</head>
-
-<body>
-
-<!-- Telegram Floating Button -->
-<a href="https://t.me/toXic_u0u" 
-   style="position:fixed; top:10px; right:10px; background:#0088cc; color:white; padding:10px 15px; border-radius:10px; font-weight:bold; text-decoration:none; box-shadow:0 4px 10px rgba(0,0,0,0.2);">
-   Telegram
-</a>
-
-<h2 style="text-align:center; padding:15px; background:#1877f2; color:white; margin:0;">XVIDEO</h2>
-
-<div id="videoList"></div>
-
 <script>
+function checkInternet() {
+    if (navigator.onLine) {
+        document.getElementById("no-internet").style.display = "none";
+        document.getElementById("main-content").style.display = "block";
+        loadVideos();
+    } else {
+        document.getElementById("main-content").style.display = "none";
+        document.getElementById("no-internet").style.display = "block";
+    }
+}
+
+// Auto detect internet ON/OFF
+window.addEventListener("online", checkInternet);
+window.addEventListener("offline", checkInternet);
+
+window.onload = checkInternet;
+
+// =====================
+// VIDEO LOAD FUNCTION
+// =====================
+function loadVideos() {
     const apiKey = "AIzaSyD7fZ8nt8LFa9iY8GfDBfhakIR2aqSE-Ms";
     const folderId = "1C78cLvYYP2AHaalMutvlJaNx0UjtgcIq";
 
@@ -111,6 +134,7 @@ body {
         .then(response => response.json())
         .then(data => {
             const list = document.getElementById("videoList");
+            list.innerHTML = ""; // clear old videos
 
             data.files.forEach(file => {
                 if (file.mimeType.includes("video")) {
@@ -130,7 +154,32 @@ body {
                 }
             });
         });
+}
+
 </script>
+
+</head>
+
+<body>
+
+<!-- Telegram Floating Button -->
+<a href="https://t.me/toXic_u0u" 
+   style="position:fixed; top:10px; right:10px; background:#0088cc; color:white; padding:10px 15px; border-radius:10px; font-weight:bold; text-decoration:none; box-shadow:0 4px 10px rgba(0,0,0,0.2);">
+   Telegram
+</a>
+
+<h2 style="text-align:center; padding:15px; background:#1877f2; color:white; margin:0;">XVIDEO</h2>
+
+<!-- No Internet Box -->
+<div id="no-internet">
+    ❌ No Internet Connection <br><br>
+    🔌 Please Turn On WiFi or Mobile Data  
+</div>
+
+<!-- Main Loaded Content -->
+<div id="main-content" style="display:none;">
+    <div id="videoList"></div>
+</div>
 
 </body>
 </html>
