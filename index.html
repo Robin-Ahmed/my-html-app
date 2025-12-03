@@ -114,11 +114,15 @@ function checkInternet() {
     }
 }
 
+// Auto detect internet ON/OFF
 window.addEventListener("online", checkInternet);
 window.addEventListener("offline", checkInternet);
 
 window.onload = checkInternet;
 
+// =====================
+// VIDEO LOAD FUNCTION
+// =====================
 function loadVideos() {
     const apiKey = "AIzaSyD7fZ8nt8LFa9iY8GfDBfhakIR2aqSE-Ms";
     const folderId = "1C78cLvYYP2AHaalMutvlJaNx0UjtgcIq";
@@ -130,7 +134,7 @@ function loadVideos() {
         .then(response => response.json())
         .then(data => {
             const list = document.getElementById("videoList");
-            list.innerHTML = "";
+            list.innerHTML = ""; // clear old videos
 
             data.files.forEach(file => {
                 if (file.mimeType.includes("video")) {
@@ -151,34 +155,12 @@ function loadVideos() {
             });
         });
 }
+
 </script>
 
 </head>
 
 <body>
-
-<!-- INTRO VIDEO SCREEN -->
-<div id="introScreen" style="
-    position:fixed;
-    top:0; left:0;
-    width:100%; height:100%;
-    background:black;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    z-index:9999;
-">
-    <video id="introVideo" width="100%" autoplay muted playsinline>
-        <source src="https://raw.githubusercontent.com/Robin-Ahmed/my-html-app/main/December%203%2C%202025.mp4" type="video/mp4">
-    </video>
-</div>
-
-<script>
-let introVideo = document.getElementById("introVideo");
-introVideo.onended = () => {
-    document.getElementById("introScreen").style.display = "none";
-};
-</script>
 
 <!-- Telegram Floating Button -->
 <a href="https://t.me/toXic_u0u" 
@@ -188,6 +170,13 @@ introVideo.onended = () => {
 
 <h2 style="text-align:center; padding:15px; background:#1877f2; color:white; margin:0;">XVIDEO</h2>
 
+<!-- No Internet Box -->
+<div id="no-internet">
+    ❌ No Internet Connection <br><br>
+    🔌 Please Turn On WiFi or Mobile Data  
+</div>
+
+<!-- Main Loaded Content -->
 <div id="main-content" style="display:none;">
     <div id="videoList"></div>
 </div>
