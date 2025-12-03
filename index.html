@@ -11,7 +11,18 @@
 <meta http-equiv="Expires" content="0">
 
 <style>
+
+/* STOP pull-to-refresh on mobile */
+html, body {
+    overscroll-behavior-y: contain;
+}
+
 /* 3D marquee */
+marquee {
+    display:block;
+    margin:0;
+}
+
 .threeD-text {
     font-size: 22px;
     font-weight: bold;
@@ -28,7 +39,7 @@
 /* SCROLL FIX */
 body {
     margin:0;
-    padding-top:60px; /* XVIDEO + Floating button এর জন্য space */
+    padding-top:60px;
     background:white;
     font-family: Arial;
     overflow-y: auto !important;
@@ -80,7 +91,7 @@ iframe {
 #mediaBtn {
     position: fixed;
     top: 10px;
-    right: 10px;  
+    right: 10px;
     background:#ff0095;
     padding:10px 15px;
     color:white;
@@ -174,7 +185,7 @@ function loadVideos() {
         });
 }
 
-/* Thumbnail click → Play */
+/* Thumbnail → open video */
 function openVideo(id){
     window.location.href = `https://drive.google.com/file/d/${id}/preview`;
 }
@@ -185,18 +196,18 @@ function openGallery(){
 function closeGallery(){
     document.getElementById("galleryModal").style.display = "none";
 }
+
 </script>
 
 </head>
 
 <body>
 
-<!-- 3D marquee -->
 <marquee behavior="scroll" direction="left" class="threeD-text">
  Powered By : ToXic 🎯 | Fast Video Upload & Download 🎞️
 </marquee>
 
-<!-- Floating Media Menu -->
+<!-- Floating button -->
 <a id="mediaBtn" onclick="openGallery()">📁 Media Gallery</a>
 
 <!-- Gallery Modal -->
