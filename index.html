@@ -161,7 +161,7 @@ function loadVideos() {
 </head>
 
 <body>
-<!-- INTRO VIDEO SCREEN -->
+    <!-- INTRO VIDEO SCREEN -->
 <div id="introScreen" style="
     position:fixed;
     top:0; left:0;
@@ -179,6 +179,11 @@ function loadVideos() {
 
 <script>
 let introVideo = document.getElementById("introVideo");
+
+document.body.addEventListener("touchstart", () => {
+    introVideo.muted = false;   // সাউন্ড চালু
+    introVideo.play();          // প্লে আবার confirm
+}, { once: true });
 
 introVideo.onended = () => {
     document.getElementById("introScreen").style.display = "none";
