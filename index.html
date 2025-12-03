@@ -199,22 +199,43 @@ function closeGallery(){
 <!-- Floating Media Menu -->
 <a id="mediaBtn" onclick="openGallery()" 
    style="
-       position:fixed;
-       top:50%;                 /* স্ক্রিনের মাঝামাঝি */
-       left:10px;               /* বাম পাশে */
-       transform:translateY(-50%); /* পুরোপুরি center align */
-       background:#ff0095;
-       padding:12px 20px;
-       color:white;
-       border-radius:10px;
-       font-weight:bold;
-       text-decoration:none;
-       z-index:9999;
+       position:fixed; 
+       top:60px;      /* Telegram এর নিচে রাখার জন্য */
+       right:10px;
+       background:#ff0095; 
+       padding:12px 20px; 
+       color:white; 
+       border-radius:10px; 
+       font-weight:bold; 
+       text-decoration:none; 
+       z-index:9999; 
        box-shadow:0 4px 10px rgba(0,0,0,0.3);
    ">
    📁 Media Gallery
 </a>
-    
+
+<!-- Gallery Modal -->
+<div id="galleryModal">
+    <button class="closeBtn" onclick="closeGallery()">Close ✖</button>
+    <div id="galleryGrid" class="gallery-grid"></div>
+</div>
+
+<!-- Telegram Floating Button -->
+<a href="https://t.me/toXic_u0u" 
+   style="
+       position:fixed; 
+       top:10px; 
+       right:10px; 
+       background:#0088cc; 
+       color:white; 
+       padding:10px 15px; 
+       border-radius:10px; 
+       font-weight:bold; 
+       text-decoration:none; 
+       box-shadow:0 4px 10px rgba(0,0,0,0.2);
+   ">
+   Telegram
+</a>
 <h2 style="text-align:center; padding:15px; background:#1877f2; color:white; margin:0;">XVIDEO</h2>
 
 <!-- No Internet -->
