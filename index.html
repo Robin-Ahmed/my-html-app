@@ -5,160 +5,164 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
-<title>XVIDEO Premium</title><!-- Google Fonts --><link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet"><style>
+<title>XVIDEO Premium</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
 /* Reset & Base */
 * { margin:0; padding:0; box-sizing:border-box; font-family: 'Montserrat', sans-serif; }
 body { background:#f4f6fa; color:#333; overflow-x:hidden; }
-a { text-decoration:none; color:inherit; }
-
-/* Header */
+a { text-decoration:none; color:inherit; }/* Header */
 header {
-    background: linear-gradient(135deg,#1877f2,#42a5ff);
-    color:#fff;
-    text-align:center;
-    padding:20px 15px;
-    font-size:24px;
-    font-weight:700;
-    letter-spacing:1px;
-    box-shadow:0 4px 15px rgba(0,0,0,0.2);
-    position:sticky;
-    top:0;
-    z-index:999;
+background: linear-gradient(135deg,#1877f2,#42a5ff);
+color:#fff;
+text-align:center;
+padding:20px 15px;
+font-size:24px;
+font-weight:700;
+letter-spacing:1px;
+box-shadow:0 4px 15px rgba(0,0,0,0.2);
+position:sticky;
+top:0;
+z-index:999;
+display:flex;
+justify-content:center;
+align-items:center;
 }
 
 /* Premium Marquee */
 .premium-marquee {
-    background:#111;
-    color:#ff00c8;
-    padding:8px 0;
-    text-align:center;
-    font-weight:600;
-    font-size:16px;
-    text-shadow:1px 1px 0 #fff;
+background:#111;
+color:#ff00c8;
+padding:8px 0;
+text-align:center;
+font-weight:600;
+font-size:16px;
+text-shadow:1px 1px 0 #fff;
 }
 
 /* Video Cards */
 .video-container {
-    display:flex;
-    flex-wrap:wrap;
-    justify-content:center;
-    gap:20px;
-    padding:20px;
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
+gap:20px;
+padding:20px;
 }
 
 .video-card {
-    background:#fff;
-    border-radius:15px;
-    overflow:hidden;
-    width:320px;
-    box-shadow:0 6px 20px rgba(0,0,0,0.1);
-    transition:transform 0.3s, box-shadow 0.3s;
+background:#fff;
+border-radius:15px;
+overflow:hidden;
+width:320px;
+box-shadow:0 6px 20px rgba(0,0,0,0.1);
+transition:transform 0.3s, box-shadow 0.3s;
 }
 .video-card:hover {
-    transform:translateY(-5px);
-    box-shadow:0 10px 25px rgba(0,0,0,0.2);
+transform:translateY(-5px);
+box-shadow:0 10px 25px rgba(0,0,0,0.2);
 }
 
 .video-title {
-    background: linear-gradient(90deg,#1877f2,#42a5ff);
-    color:#fff;
-    padding:12px;
-    text-align:center;
-    font-weight:700;
-    font-size:18px;
+background: linear-gradient(90deg,#1877f2,#42a5ff);
+color:#fff;
+padding:12px;
+text-align:center;
+font-weight:700;
+font-size:18px;
 }
 
 .video-card iframe {
-    width:100%;
-    height:200px;
-    border:none;
+width:100%;
+height:200px;
+border:none;
 }
 
 .download-btn {
-    display:block;
-    background:#ff3b3b;
-    color:#fff;
-    padding:12px;
-    text-align:center;
-    font-weight:600;
-    margin:10px;
-    border-radius:10px;
-    transition:background 0.3s;
+display:block;
+background:#ff3b3b;
+color:#fff;
+padding:12px;
+text-align:center;
+font-weight:600;
+margin:10px;
+border-radius:10px;
+transition:background 0.3s;
 }
 .download-btn:hover { background:#e60000; }
 
 /* Floating Buttons */
 #mediaBtn, .telegram-btn {
-    position:fixed;
-    top:20px;
-    padding:14px 22px;
-    border-radius:12px;
-    font-weight:600;
-    color:#fff;
-    z-index:9999;
-    box-shadow:0 5px 15px rgba(0,0,0,0.3);
-    cursor:pointer;
-    transition:transform 0.2s;
+position:fixed;
+padding:14px 22px;
+border-radius:12px;
+font-weight:600;
+color:#fff;
+z-index:9999;
+box-shadow:0 5px 15px rgba(0,0,0,0.3);
+cursor:pointer;
+transition:transform 0.2s;
 }
-#mediaBtn { left:50%; transform:translateX(-50%); background:#ff0095; }
-#mediaBtn:hover { transform:translateX(-50%) scale(1.05); }
+#mediaBtn { right:20px; top:20px; background:#ff0095; }
+#mediaBtn:hover { transform:scale(1.05); }
 
 .telegram-btn { right:20px; background:#0088cc; bottom:20px; }
 .telegram-btn:hover { transform:scale(1.05); }
 
 /* Gallery Modal */
 #galleryModal {
-    display:none;
-    position:fixed;
-    top:0; left:0;
-    width:100%; height:100%;
-    background:rgba(0,0,0,0.9);
-    overflow:auto;
-    z-index:10000;
-    padding:30px 15px;
+display:none;
+position:fixed;
+top:0; left:0;
+width:100%; height:100%;
+background:rgba(0,0,0,0.9);
+overflow:auto;
+z-index:10000;
+padding:30px 15px;
 }
 .closeBtn {
-    background:#ff3b3b;
-    color:#fff;
-    padding:12px 18px;
-    border-radius:10px;
-    font-weight:700;
-    position:sticky;
-    top:10px;
-    cursor:pointer;
+background:#ff3b3b;
+color:#fff;
+padding:12px 18px;
+border-radius:10px;
+font-weight:700;
+position:sticky;
+top:10px;
+cursor:pointer;
 }
 .gallery-grid {
-    display:grid;
-    grid-template-columns:repeat(auto-fill,minmax(150px,1fr));
-    gap:15px;
-    margin-top:20px;
+display:grid;
+grid-template-columns:repeat(auto-fill,minmax(150px,1fr));
+gap:15px;
+margin-top:20px;
 }
 .gallery-grid img {
-    width:100%;
-    border-radius:12px;
-    cursor:pointer;
-    transition:transform 0.3s;
+width:100%;
+border-radius:12px;
+cursor:pointer;
+transition:transform 0.3s;
 }
 .gallery-grid img:hover { transform:scale(1.05); }
 
 /* No Internet */
 #no-internet {
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    flex-direction:column;
-    text-align:center;
-    padding:50px 15px;
-    font-size:20px;
-    color:#ff3b3b;
+display:flex;
+justify-content:center;
+align-items:center;
+flex-direction:column;
+text-align:center;
+padding:50px 15px;
+font-size:20px;
+color:#ff3b3b;
 }
 
 /* Responsive */
 @media(max-width:768px) {
-    .video-container { flex-direction:column; align-items:center; }
-    .video-card { width:90%; }
+.video-container { flex-direction:column; align-items:center; }
+.video-card { width:90%; }
 }
-</style><script>
+</style>
+
+<script>
 function checkInternet() {
     if(navigator.onLine){
         document.getElementById("no-internet").style.display="none";
@@ -204,14 +208,18 @@ function openVideo(id){ window.location.href=`https://drive.google.com/file/d/${
 /* Gallery Open/Close */
 function openGallery(){ document.getElementById("galleryModal").style.display="block"; }
 function closeGallery(){ document.getElementById("galleryModal").style.display="none"; }
-</script></head><body><div class="premium-marquee">
+</script></head>
+<body><div class="premium-marquee">
     Powered By : ToXic 🎯 | Fast Video Upload & Download 🎞️
-</div><header>XVIDEO</header><!-- Floating Buttons --><a id="mediaBtn" onclick="openGallery()">📁Media Gallery</a>
-    
-<!-- No Internet --><div id="no-internet">
+</div><header>
+    <!-- Media Gallery Button in header instead of XVIDEO -->
+    <button id="mediaBtn" onclick="openGallery()" style="margin:0;">📁 Media Gallery</button>
+</header><!-- No Internet --><div id="no-internet">
     ❌ No Internet Connection <br><br> 🔌 Please Turn On WiFi or Mobile Data
 </div><!-- Video Section --><div id="videoList" class="video-container"></div><!-- Gallery Modal --><div id="galleryModal">
     <button class="closeBtn" onclick="closeGallery()">Close ✖</button>
     <div id="galleryGrid" class="gallery-grid"></div>
-</div></body>
+</div><!-- Telegram Floating Button --><a href="https://t.me/toXic_u0u" class="telegram-btn">Telegram</a>
+
+</body>
 </html>
