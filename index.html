@@ -25,10 +25,10 @@
     font-family: Arial, sans-serif;
 }
 
-/* Main body */
+/* SCROLL FIX */
 body {
     margin:0;
-    padding:0;
+    padding-top:60px; /* XVIDEO + Floating button এর জন্য space */
     background:white;
     font-family: Arial;
     overflow-y: auto !important;
@@ -76,14 +76,13 @@ iframe {
     font-weight: bold;
 }
 
-/* Floating Gallery Button */
+/* Floating Button at Right side of XVIDEO */
 #mediaBtn {
     position: fixed;
-    top: 15px;
-    left: 50%;
-    transform: translateX(-50%);
+    top: 10px;
+    right: 10px;  
     background:#ff0095;
-    padding:12px 20px;
+    padding:10px 15px;
     color:white;
     border-radius:10px;
     font-weight:bold;
@@ -192,7 +191,7 @@ function closeGallery(){
 
 <body>
 
-<!-- marquee এখন BODY তে রাখা হয়েছে -->
+<!-- 3D marquee -->
 <marquee behavior="scroll" direction="left" class="threeD-text">
  Powered By : ToXic 🎯 | Fast Video Upload & Download 🎞️
 </marquee>
@@ -206,7 +205,9 @@ function closeGallery(){
     <div id="galleryGrid" class="gallery-grid"></div>
 </div>
 
-<h2 style="text-align:center; padding:15px; background:#1877f2; color:white; margin:0;">XVIDEO</h2>
+<h2 style="text-align:center; padding:15px; background:#1877f2; color:white; margin:0;">
+    XVIDEO
+</h2>
 
 <!-- No Internet -->
 <div id="no-internet" style="display:none;">
