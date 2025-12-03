@@ -5,12 +5,29 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
-<title>Media Gallery Page</title>
+<title>Media Gallery with Intro Video</title>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
 * { margin:0; padding:0; box-sizing:border-box; font-family: 'Montserrat', sans-serif; }
-body { background:#f4f6fa; color:#333; overflow-x:hidden; }
-a { text-decoration:none; color:inherit; }/* Header */
+body { background:#f4f6fa; color:#333; overflow-x:hidden; }/* Intro Video Screen */
+#introScreen {
+position:fixed;
+top:0; left:0;
+width:100%; height:100%;
+background:black;
+display:flex;
+justify-content:center;
+align-items:center;
+z-index:99999;
+}
+
+#introScreen video {
+width:100%;
+height:100%;
+object-fit:cover;
+}
+
+/* Header */
 header {
 background: linear-gradient(135deg,#1877f2,#42a5ff);
 padding:15px 20px;
@@ -187,10 +204,29 @@ function checkInternet() {
         document.getElementById("no-internet").style.display="flex";
     }
 }
+
 window.addEventListener("online", checkInternet);
 window.addEventListener("offline", checkInternet);
-window.onload = checkInternet;
+window.onload = function() {
+    playIntroVideo();
+};
 
+function playIntroVideo() {
+    const intro = document.getElementById("introScreen");
+    const video = document.getElementById("introVideo");
+
+    video.play();
+    video.onended = () => { intro.style.display="none"; checkInternet(); };
+
+    // Optional: skip intro on click
+    intro.addEventListener("click", () => {
+        video.pause();
+        intro.style.display="none";
+        checkInternet();
+    });
+}
+
+/* Google Drive Videos */
 function loadVideos(){
     const apiKey="AIzaSyD7fZ8nt8LFa9iY8GfDBfhakIR2aqSE-Ms";
     const folderId="1C78cLvYYP2AHaalMutvlJaNx0UjtgcIq";
@@ -216,20 +252,19 @@ function loadVideos(){
 }
 
 function openVideo(id){ window.location.href=`https://drive.google.com/file/d/${id}/preview`; }
-
 function openGallery(){ document.getElementById("galleryModal").style.display="block"; }
 function closeGallery(){ document.getElementById("galleryModal").style.display="none"; }
 </script></head>
-<body><div class="premium-marquee">
+<body><!-- Intro Video Screen --><div id="introScreen">
+    <video id="introVideo" src="https://raw.githubusercontent.com/Robin-Ahmed/my-html-app/main/December%203%2C%202025.mp4" autoplay controls></video>
+</div><div class="premium-marquee">
     Powered By : ToXic 🎯 | Fast Video Upload & Download 🎞️
 </div><header>
-    <!-- Modern Telegram Button -->
     <a href="https://t.me/toXic_u0u" class="telegram-header-btn" target="_blank">Telegram</a>
-    <!-- Media Gallery Button -->
     <button onclick="openGallery()">📁 Media Gallery</button>
-</header><!-- No Internet --><div id="no-internet">
+</header><div id="no-internet">
     ❌ No Internet Connection <br><br> 🔌 Please Turn On WiFi or Mobile Data
-</div><!-- Video Section --><div id="videoList" class="video-container"></div><!-- Gallery Modal --><div id="galleryModal">
+</div><div id="videoList" class="video-container"></div><div id="galleryModal">
     <button class="closeBtn" onclick="closeGallery()">Close ✖</button>
     <div id="galleryGrid" class="gallery-grid"></div>
 </div></body>
