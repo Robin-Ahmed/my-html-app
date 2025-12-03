@@ -1,12 +1,19 @@
-<!DOCTYPE html>
-<html>
+<!DOCTYPE html><html>
 <head>
-<!-- CREATED BY -->
-<marquee behavior="scroll" direction="left" class="threeD-text">
-    Powered By : ToXic 🎯 , This Application Continues Uploading Video 🎞️ Fast Download And Enjoy
-</marquee>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0"><style>
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow-y: auto; /* Scroll enabled */
+    font-family: Arial, sans-serif;
+    background: black;
+}
 
-<style>
+/* Marquee 3D Text */
 .threeD-text {
     font-size: 22px;
     font-weight: bold;
@@ -19,90 +26,83 @@
         3px 3px 0px #ff00c8,
         4px 4px 0px #ff00c8,
         5px 5px 10px rgba(255,0,200,0.7);
-    font-family: Arial, sans-serif;
 }
-body {
-    margin:0;
-    padding:0;
-    background: black;
-    font-family: Arial;
+
+/* Video Boxes */
+.video-box {
+    margin: 20px auto;
+    width: 90%;
+    background: white;
+    padding: 15px;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    border-left: 6px solid #1877f2;
 }
-</style>
 
-<!-- mobile zoom lock + cache off -->
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-<meta http-equiv="Pragma" content="no-cache">
-<meta http-equiv="Expires" content="0">
+.title-box {
+    background: linear-gradient(90deg, #1877f2, #42a5ff);
+    padding: 10px 15px;
+    border-radius: 10px;
+    font-size: 18px;
+    font-weight: bold;
+    color: white;
+    margin-bottom: 10px;
+    text-align: center;
+}
 
-<style>
+iframe {
+    width: 100%;
+    height: 300px;
+    border: none;
+    border-radius: 10px;
+    margin-top: 10px;
+}
 
-    body { 
-        background: white; 
-    }
+.download-btn {
+    display: inline-block;
+    margin-top: 10px;
+    background: red;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 10px;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: bold;
+}
 
-    .video-box {
-        margin: 20px auto;
-        width: 90%;
-        background: white;
-        padding: 15px;
-        border-radius: 15px;
-        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-        border-left: 6px solid #1877f2;
-    }
+.download-btn:hover {
+    background: darkred;
+}
 
-    .title-box {
-        background: linear-gradient(90deg, #1877f2, #42a5ff);
-        padding: 10px 15px;
-        border-radius: 10px;
-        font-size: 18px;
-        font-weight: bold;
-        color: white;
-        margin-bottom: 10px;
-        text-align: center;
-    }
+/* No Internet Box */
+#no-internet {
+    display: none;
+    text-align: center;
+    padding: 50px 20px;
+    font-size: 22px;
+    background: #fff2f2;
+    color: #b30000;
+    font-weight: bold;
+    border-radius: 10px;
+    margin: 20px;
+    border: 2px solid red;
+}
 
-    iframe {
-        width: 100%;
-        height: 300px;
-        border: none;
-        border-radius: 10px;
-        margin-top: 10px;
-    }
-
-    .download-btn {
-        display: inline-block;
-        margin-top: 10px;
-        background: red;
-        color: white;
-        padding: 10px 15px;
-        border-radius: 10px;
-        text-decoration: none;
-        font-size: 16px;
-        font-weight: bold;
-    }
-
-    .download-btn:hover {
-        background: darkred;
-    }
-
-    /* No Internet Box */
-    #no-internet {
-        display: none;
-        text-align: center;
-        padding: 50px 20px;
-        font-size: 22px;
-        background: #fff2f2;
-        color: #b30000;
-        font-weight: bold;
-        border-radius: 10px;
-        margin: 20px;
-        border: 2px solid red;
-    }
-
-</style>
-
-<script>
+/* Telegram Button */
+.telegram-btn {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    background: #0088cc;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 10px;
+    font-weight: bold;
+    text-decoration: none;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    z-index: 9999;
+}
+</style><script>
 function checkInternet() {
     if (navigator.onLine) {
         document.getElementById("no-internet").style.display = "none";
@@ -136,50 +136,39 @@ function loadVideos() {
             const list = document.getElementById("videoList");
             list.innerHTML = ""; // clear old videos
 
+            if (!data.files) return;
+
             data.files.forEach(file => {
                 if (file.mimeType.includes("video")) {
-
                     const box = document.createElement("div");
                     box.className = "video-box";
-
                     box.innerHTML = `
                         <div class="title-box">${file.name}</div>
                         <iframe src="https://drive.google.com/file/d/${file.id}/preview" allow="autoplay" allowfullscreen></iframe>
-                        <a class="download-btn" href="https://drive.google.com/uc?export=download&id=${file.id}">
+                        <a class="download-btn" href="https://drive.google.com/uc?export=download&id=${file.id}" target="_blank">
                             Download
                         </a>
                     `;
-
                     list.appendChild(box);
                 }
             });
         });
 }
 
-</script>
+// Refresh Warning
+window.addEventListener("beforeunload", function (e) {
+    e.preventDefault();
+    e.returnValue = "Are you sure you want to leave or refresh?";
+});
+</script></head>
+<body><!-- Marquee --><marquee behavior="scroll" direction="left" class="threeD-text">
+    Powered By : ToXic 🎯 , This Application Continues Uploading Video 🎞️ Fast Download And Enjoy
+</marquee><!-- Telegram Floating Button --><a href="https://t.me/toXic_u0u" class="telegram-btn">Telegram</a>
 
-</head>
-
-<body>
-
-<!-- Telegram Floating Button -->
-<a href="https://t.me/toXic_u0u" 
-   style="position:fixed; top:10px; right:10px; background:#0088cc; color:white; padding:10px 15px; border-radius:10px; font-weight:bold; text-decoration:none; box-shadow:0 4px 10px rgba(0,0,0,0.2);">
-   Telegram
-</a>
-
-<h2 style="text-align:center; padding:15px; background:#1877f2; color:white; margin:0;">XVIDEO</h2>
-
-<!-- No Internet Box -->
-<div id="no-internet">
+<h2 style="text-align:center; padding:15px; background:#1877f2; color:white; margin:0;">XVIDEO</h2><!-- No Internet Box --><div id="no-internet">
     ❌ No Internet Connection <br><br>
     🔌 Please Turn On WiFi or Mobile Data  
-</div>
-
-<!-- Main Loaded Content -->
-<div id="main-content" style="display:none;">
+</div><!-- Main Loaded Content --><div id="main-content" style="display:none;">
     <div id="videoList"></div>
-</div>
-
-</body>
+</div></body>
 </html>
