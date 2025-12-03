@@ -1,139 +1,108 @@
 <!DOCTYPE html>
 <html>
 <head>
-
-<!-- mobile zoom lock -->
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-
-<!-- cache off -->
-<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-<meta http-equiv="Pragma" content="no-cache">
-<meta http-equiv="Expires" content="0">
+<!-- CREATED BY -->
+<marquee behavior="scroll" direction="left" class="threeD-text">
+    Powered By : ToXic 🎯 , This Application Continues Uploading Video 🎞️ Fast Download And Enjoy
+</marquee>
 
 <style>
-
-/* STOP pull-to-refresh on mobile */
-html, body {
-    overscroll-behavior: none; /* Pull-down refresh blocked */
-    margin:0;
-    padding-top:60px; /* XVIDEO + button space */
-    background:white;
-    font-family: Arial;
-    overflow-y: auto !important;
-}
-
-/* 3D marquee */
-marquee {
-    display:block;
-    margin:0;
-}
-
 .threeD-text {
     font-size: 22px;
     font-weight: bold;
     color: #fff;
     padding: 10px;
     background: #111;
-    text-shadow:
+    text-shadow: 
         1px 1px 0px #ff00c8,
         2px 2px 0px #ff00c8,
-        3px 3px 0px #ff00c8;
+        3px 3px 0px #ff00c8,
+        4px 4px 0px #ff00c8,
+        5px 5px 10px rgba(255,0,200,0.7);
     font-family: Arial, sans-serif;
 }
-
-/* Video box */
-.video-box {
-    margin: 20px auto;
-    width: 90%;
-    background: white;
-    padding: 15px;
-    border-radius: 15px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    border-left: 6px solid #1877f2;
-}
-
-.title-box {
-    background: linear-gradient(90deg, #1877f2, #42a5ff);
-    padding: 10px 15px;
-    border-radius: 10px;
-    font-size: 18px;
-    font-weight: bold;
-    color: white;
-    margin-bottom: 10px;
-    text-align: center;
-}
-
-iframe {
-    width: 100%;
-    height: 300px;
-    border: none;
-    border-radius: 10px;
-    margin-top: 10px;
-}
-
-.download-btn {
-    display: inline-block;
-    margin-top: 10px;
-    background: red;
-    color: white;
-    padding: 10px 15px;
-    border-radius: 10px;
-    text-decoration: none;
-    font-size: 16px;
-    font-weight: bold;
-}
-
-/* Floating Button at Right side of XVIDEO */
-#mediaBtn {
-    position: fixed;
-    top: 10px;
-    right: 10px;
-    background:#ff0095;
-    padding:10px 15px;
-    color:white;
-    border-radius:10px;
-    font-weight:bold;
-    text-decoration:none;
-    z-index:9999;
-    box-shadow:0 4px 10px rgba(0,0,0,0.3);
-}
-
-/* Gallery Modal */
-#galleryModal {
-    display:none;
-    position:fixed;
-    top:0; left:0;
-    width:100%; height:100%;
-    background:rgba(0,0,0,0.85);
-    overflow:auto;
-    z-index:99999;
-    padding:20px;
-}
-
-.gallery-grid {
-    display:grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap:10px;
-}
-
-.gallery-grid img {
-    width:100%;
-    border-radius:10px;
-    cursor:pointer;
-}
-
-.closeBtn {
-    background:red;
-    color:white;
-    padding:10px 15px;
-    border-radius:8px;
-    position: sticky;
-    top:10px;
+body {
+    margin:0;
+    padding:0;
+    background: black;
+    font-family: Arial;
 }
 </style>
 
-<script>
+<!-- mobile zoom lock + cache off -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
 
+<style>
+
+    body { 
+        background: white; 
+    }
+
+    .video-box {
+        margin: 20px auto;
+        width: 90%;
+        background: white;
+        padding: 15px;
+        border-radius: 15px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        border-left: 6px solid #1877f2;
+    }
+
+    .title-box {
+        background: linear-gradient(90deg, #1877f2, #42a5ff);
+        padding: 10px 15px;
+        border-radius: 10px;
+        font-size: 18px;
+        font-weight: bold;
+        color: white;
+        margin-bottom: 10px;
+        text-align: center;
+    }
+
+    iframe {
+        width: 100%;
+        height: 300px;
+        border: none;
+        border-radius: 10px;
+        margin-top: 10px;
+    }
+
+    .download-btn {
+        display: inline-block;
+        margin-top: 10px;
+        background: red;
+        color: white;
+        padding: 10px 15px;
+        border-radius: 10px;
+        text-decoration: none;
+        font-size: 16px;
+        font-weight: bold;
+    }
+
+    .download-btn:hover {
+        background: darkred;
+    }
+
+    /* No Internet Box */
+    #no-internet {
+        display: none;
+        text-align: center;
+        padding: 50px 20px;
+        font-size: 22px;
+        background: #fff2f2;
+        color: #b30000;
+        font-weight: bold;
+        border-radius: 10px;
+        margin: 20px;
+        border: 2px solid red;
+    }
+
+</style>
+
+<script>
 function checkInternet() {
     if (navigator.onLine) {
         document.getElementById("no-internet").style.display = "none";
@@ -145,52 +114,46 @@ function checkInternet() {
     }
 }
 
+// Auto detect internet ON/OFF
 window.addEventListener("online", checkInternet);
 window.addEventListener("offline", checkInternet);
+
 window.onload = checkInternet;
 
-/* Google Drive Fetch */
+// =====================
+// VIDEO LOAD FUNCTION
+// =====================
 function loadVideos() {
     const apiKey = "AIzaSyD7fZ8nt8LFa9iY8GfDBfhakIR2aqSE-Ms";
     const folderId = "1C78cLvYYP2AHaalMutvlJaNx0UjtgcIq";
 
-    fetch(`https://www.googleapis.com/drive/v3/files?q='${folderId}'+in+parents&key=${apiKey}&fields=files(id,name,mimeType)`)
-        .then(r=>r.json())
-        .then(data=>{
+    const url =
+        `https://www.googleapis.com/drive/v3/files?q='${folderId}'+in+parents&key=${apiKey}&fields=files(id,name,mimeType)`;
+
+    fetch(url)
+        .then(response => response.json())
+        .then(data => {
             const list = document.getElementById("videoList");
-            const gallery = document.getElementById("galleryGrid");
-            list.innerHTML = "";
-            gallery.innerHTML = "";
+            list.innerHTML = ""; // clear old videos
 
-            data.files.forEach(file=>{
-                if(file.mimeType.includes("video")){
+            data.files.forEach(file => {
+                if (file.mimeType.includes("video")) {
 
-                    list.innerHTML += `
-                        <div class="video-box">
-                            <div class="title-box">${file.name}</div>
-                            <iframe src="https://drive.google.com/file/d/${file.id}/preview" allow="autoplay" allowfullscreen></iframe>
-                            <a class="download-btn" href="https://drive.google.com/uc?export=download&id=${file.id}">Download</a>
-                        </div>
+                    const box = document.createElement("div");
+                    box.className = "video-box";
+
+                    box.innerHTML = `
+                        <div class="title-box">${file.name}</div>
+                        <iframe src="https://drive.google.com/file/d/${file.id}/preview" allow="autoplay" allowfullscreen></iframe>
+                        <a class="download-btn" href="https://drive.google.com/uc?export=download&id=${file.id}">
+                            Download
+                        </a>
                     `;
 
-                    gallery.innerHTML += `
-                        <img src="https://drive.google.com/thumbnail?id=${file.id}" onclick="openVideo('${file.id}')">
-                    `;
+                    list.appendChild(box);
                 }
             });
         });
-}
-
-/* Thumbnail → open video */
-function openVideo(id){
-    window.location.href = `https://drive.google.com/file/d/${id}/preview`;
-}
-
-function openGallery(){
-    document.getElementById("galleryModal").style.display = "block";
-}
-function closeGallery(){
-    document.getElementById("galleryModal").style.display = "none";
 }
 
 </script>
@@ -199,30 +162,21 @@ function closeGallery(){
 
 <body>
 
-<marquee behavior="scroll" direction="left" class="threeD-text">
- Powered By : ToXic 🎯 | Fast Video Upload & Download 🎞️
-</marquee>
+<!-- Telegram Floating Button -->
+<a href="https://t.me/toXic_u0u" 
+   style="position:fixed; top:10px; right:10px; background:#0088cc; color:white; padding:10px 15px; border-radius:10px; font-weight:bold; text-decoration:none; box-shadow:0 4px 10px rgba(0,0,0,0.2);">
+   Telegram
+</a>
 
-<!-- Floating button -->
-<a id="mediaBtn" onclick="openGallery()">📁 Media Gallery</a>
+<h2 style="text-align:center; padding:15px; background:#1877f2; color:white; margin:0;">XVIDEO</h2>
 
-<!-- Gallery Modal -->
-<div id="galleryModal">
-    <button class="closeBtn" onclick="closeGallery()">Close ✖</button>
-    <div id="galleryGrid" class="gallery-grid"></div>
-</div>
-
-<h2 style="text-align:center; padding:15px; background:#1877f2; color:white; margin:0;">
-    XVIDEO
-</h2>
-
-<!-- No Internet -->
-<div id="no-internet" style="display:none;">
+<!-- No Internet Box -->
+<div id="no-internet">
     ❌ No Internet Connection <br><br>
     🔌 Please Turn On WiFi or Mobile Data  
 </div>
 
-<!-- Main -->
+<!-- Main Loaded Content -->
 <div id="main-content" style="display:none;">
     <div id="videoList"></div>
 </div>
