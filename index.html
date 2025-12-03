@@ -180,11 +180,17 @@ function loadVideos() {
 <script>
 let introVideo = document.getElementById("introVideo");
 
+// Desktop - direct sound on
+introVideo.muted = false;
+
+// Mobile browsers block autoplay sound
+// তাই user touch হলে sound on
 document.body.addEventListener("touchstart", () => {
-    introVideo.muted = false;   // সাউন্ড চালু
-    introVideo.play();          // প্লে আবার confirm
+    introVideo.muted = false; // sound on
+    introVideo.play();        // ensure video is playing
 }, { once: true });
 
+// ভিডিও শেষ হলে intro screen hide হবে
 introVideo.onended = () => {
     document.getElementById("introScreen").style.display = "none";
 };
