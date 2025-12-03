@@ -161,7 +161,7 @@ function loadVideos() {
 </head>
 
 <body>
-    <!-- INTRO VIDEO SCREEN -->
+   <!-- INTRO VIDEO SCREEN -->
 <div id="introScreen" style="
     position:fixed;
     top:0; left:0;
@@ -171,6 +171,7 @@ function loadVideos() {
     justify-content:center;
     align-items:center;
     z-index:9999;
+    display:none; /* hidden by default */
 ">
     <video id="introVideo" width="100%" autoplay muted playsinline>
         <source src="https://raw.githubusercontent.com/Robin-Ahmed/my-html-app/main/December%203%2C%202025.mp4" type="video/mp4">
@@ -178,22 +179,21 @@ function loadVideos() {
 </div>
 
 <script>
-let introVideo = document.getElementById("introVideo");
+// Already watched?
+if (!localStorage.getItem("introPlayed")) {
 
-// Desktop - direct sound on
-introVideo.muted = false;
+    document.getElementById("introScreen").style.display = "flex";
 
-// Mobile browsers block autoplay sound
-// তাই user touch হলে sound on
-document.body.addEventListener("touchstart", () => {
-    introVideo.muted = false; // sound on
-    introVideo.play();        // ensure video is playing
-}, { once: true });
+    let introVideo = document.getElementById("introVideo");
 
-// ভিডিও শেষ হলে intro screen hide হবে
-introVideo.onended = () => {
-    document.getElementById("introScreen").style.display = "none";
-};
+    // Desktop autoplay with sound (mobile will block sound)
+    introVideo.muted = false;
+
+    introVideo.onended = () => {
+        document.getElementById("introScreen").style.display = "none";
+        localStorage.setItem("introPlayed", "yes");
+    };
+}
 </script>
 <!-- Telegram Floating Button -->
 <a href="https://t.me/toXic_u0u" 
