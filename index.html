@@ -8,10 +8,9 @@
 <title>XVIDEO Premium</title>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
-/* Reset & Base */
 * { margin:0; padding:0; box-sizing:border-box; font-family: 'Montserrat', sans-serif; }
 body { background:#f4f6fa; color:#333; overflow-x:hidden; }
-a { text-decoration:none; color:inherit; }/* Header */
+a { text-decoration:none; color:inherit; }/* Header /
 header {
 background: linear-gradient(135deg,#1877f2,#42a5ff);
 color:#fff;
@@ -25,16 +24,17 @@ position:sticky;
 top:0;
 z-index:999;
 display:flex;
-justify-content:center;
+justify-content:flex-end; / button alignment */
 align-items:center;
+gap:10px;
 }
 
-/* Header Button */
+/* Header Buttons */
 header button {
 background:#ff0095;
 color:#fff;
 border:none;
-padding:10px 20px;
+padding:10px 18px;
 border-radius:12px;
 font-size:16px;
 font-weight:600;
@@ -42,6 +42,21 @@ cursor:pointer;
 transition:0.3s;
 }
 header button:hover { background:#e60084; }
+
+/* Telegram Button Style */
+header a.telegram-header-btn {
+background:#0088cc;
+color:#fff;
+padding:10px 18px;
+border-radius:12px;
+font-weight:600;
+font-size:16px;
+display:flex;
+align-items:center;
+justify-content:center;
+transition:0.3s;
+}
+header a.telegram-header-btn:hover { background:#006699; }
 
 /* Premium Marquee */
 .premium-marquee {
@@ -155,6 +170,7 @@ color:#ff3b3b;
 @media(max-width:768px) {
 .video-container { flex-direction:column; align-items:center; }
 .video-card { width:90%; }
+header { flex-direction:column; gap:10px; }
 }
 </style>
 
@@ -208,14 +224,14 @@ function closeGallery(){ document.getElementById("galleryModal").style.display="
 <body><div class="premium-marquee">
     Powered By : ToXic 🎯 | Fast Video Upload & Download 🎞️
 </div><header>
-    <!-- Media Gallery Button inside header -->
+    <!-- Telegram Button -->
+    <a href="https://t.me/toXic_u0u" class="telegram-header-btn" target="_blank">Telegram</a>
+    <!-- Media Gallery Button -->
     <button onclick="openGallery()">📁 Media Gallery</button>
 </header><!-- No Internet --><div id="no-internet">
     ❌ No Internet Connection <br><br> 🔌 Please Turn On WiFi or Mobile Data
 </div><!-- Video Section --><div id="videoList" class="video-container"></div><!-- Gallery Modal --><div id="galleryModal">
     <button class="closeBtn" onclick="closeGallery()">Close ✖</button>
     <div id="galleryGrid" class="gallery-grid"></div>
-</div><!-- Telegram Floating Button --><a href="https://t.me/toXic_u0u" class="telegram-btn">Telegram</a>
-
-</body>
+</div></body>
 </html>
