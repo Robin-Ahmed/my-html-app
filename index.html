@@ -14,7 +14,12 @@
 
 /* STOP pull-to-refresh on mobile */
 html, body {
-    overscroll-behavior-y: contain;
+    overscroll-behavior: none; /* Pull-down refresh blocked */
+    margin:0;
+    padding-top:60px; /* XVIDEO + button space */
+    background:white;
+    font-family: Arial;
+    overflow-y: auto !important;
 }
 
 /* 3D marquee */
@@ -34,15 +39,6 @@ marquee {
         2px 2px 0px #ff00c8,
         3px 3px 0px #ff00c8;
     font-family: Arial, sans-serif;
-}
-
-/* SCROLL FIX */
-body {
-    margin:0;
-    padding-top:60px;
-    background:white;
-    font-family: Arial;
-    overflow-y: auto !important;
 }
 
 /* Video box */
