@@ -16,8 +16,8 @@ header {
 background: linear-gradient(135deg,#1877f2,#42a5ff);
 color:#fff;
 text-align:center;
-padding:20px 15px;
-font-size:24px;
+padding:15px 20px;
+font-size:22px;
 font-weight:700;
 letter-spacing:1px;
 box-shadow:0 4px 15px rgba(0,0,0,0.2);
@@ -28,6 +28,20 @@ display:flex;
 justify-content:center;
 align-items:center;
 }
+
+/* Header Button */
+header button {
+background:#ff0095;
+color:#fff;
+border:none;
+padding:10px 20px;
+border-radius:12px;
+font-size:16px;
+font-weight:600;
+cursor:pointer;
+transition:0.3s;
+}
+header button:hover { background:#e60084; }
 
 /* Premium Marquee */
 .premium-marquee {
@@ -89,24 +103,6 @@ border-radius:10px;
 transition:background 0.3s;
 }
 .download-btn:hover { background:#e60000; }
-
-/* Floating Buttons */
-#mediaBtn, .telegram-btn {
-position:fixed;
-padding:14px 22px;
-border-radius:12px;
-font-weight:600;
-color:#fff;
-z-index:9999;
-box-shadow:0 5px 15px rgba(0,0,0,0.3);
-cursor:pointer;
-transition:transform 0.2s;
-}
-#mediaBtn { right:20px; top:20px; background:#ff0095; }
-#mediaBtn:hover { transform:scale(1.05); }
-
-.telegram-btn { right:20px; background:#0088cc; bottom:20px; }
-.telegram-btn:hover { transform:scale(1.05); }
 
 /* Gallery Modal */
 #galleryModal {
@@ -212,8 +208,8 @@ function closeGallery(){ document.getElementById("galleryModal").style.display="
 <body><div class="premium-marquee">
     Powered By : ToXic 🎯 | Fast Video Upload & Download 🎞️
 </div><header>
-    <!-- Media Gallery Button in header instead of XVIDEO -->
-    <button id="mediaBtn" onclick="openGallery()" style="margin:0;">📁 Media Gallery</button>
+    <!-- Media Gallery Button inside header -->
+    <button onclick="openGallery()">📁 Media Gallery</button>
 </header><!-- No Internet --><div id="no-internet">
     ❌ No Internet Connection <br><br> 🔌 Please Turn On WiFi or Mobile Data
 </div><!-- Video Section --><div id="videoList" class="video-container"></div><!-- Gallery Modal --><div id="galleryModal">
