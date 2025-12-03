@@ -5,28 +5,25 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
-<title>XVIDEO Premium</title>
+<title>Media Gallery Page</title>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
 * { margin:0; padding:0; box-sizing:border-box; font-family: 'Montserrat', sans-serif; }
 body { background:#f4f6fa; color:#333; overflow-x:hidden; }
-a { text-decoration:none; color:inherit; }/* Header /
+a { text-decoration:none; color:inherit; }/* Header */
 header {
 background: linear-gradient(135deg,#1877f2,#42a5ff);
-color:#fff;
-text-align:center;
 padding:15px 20px;
-font-size:22px;
-font-weight:700;
-letter-spacing:1px;
-box-shadow:0 4px 15px rgba(0,0,0,0.2);
+display:flex;
+justify-content:flex-end;
+align-items:center;
+gap:12px;
 position:sticky;
 top:0;
 z-index:999;
-display:flex;
-justify-content:flex-end; / button alignment */
-align-items:center;
-gap:10px;
+box-shadow:0 4px 15px rgba(0,0,0,0.2);
+border-bottom-left-radius:10px;
+border-bottom-right-radius:10px;
 }
 
 /* Header Buttons */
@@ -43,20 +40,25 @@ transition:0.3s;
 }
 header button:hover { background:#e60084; }
 
-/* Telegram Button Style */
+/* Modern Telegram Button */
 header a.telegram-header-btn {
 background:#0088cc;
 color:#fff;
 padding:10px 18px;
-border-radius:12px;
+border-radius:20px;
 font-weight:600;
 font-size:16px;
 display:flex;
 align-items:center;
 justify-content:center;
-transition:0.3s;
+box-shadow:0 4px 8px rgba(0,0,0,0.2);
+transition:0.3s, transform 0.2s;
 }
-header a.telegram-header-btn:hover { background:#006699; }
+header a.telegram-header-btn:hover {
+background:#00aaff;
+transform:translateY(-2px);
+box-shadow:0 6px 12px rgba(0,0,0,0.3);
+}
 
 /* Premium Marquee */
 .premium-marquee {
@@ -189,7 +191,6 @@ window.addEventListener("online", checkInternet);
 window.addEventListener("offline", checkInternet);
 window.onload = checkInternet;
 
-/* Google Drive Fetch */
 function loadVideos(){
     const apiKey="AIzaSyD7fZ8nt8LFa9iY8GfDBfhakIR2aqSE-Ms";
     const folderId="1C78cLvYYP2AHaalMutvlJaNx0UjtgcIq";
@@ -214,17 +215,15 @@ function loadVideos(){
     });
 }
 
-/* Thumbnail click → Play */
 function openVideo(id){ window.location.href=`https://drive.google.com/file/d/${id}/preview`; }
 
-/* Gallery Open/Close */
 function openGallery(){ document.getElementById("galleryModal").style.display="block"; }
 function closeGallery(){ document.getElementById("galleryModal").style.display="none"; }
 </script></head>
 <body><div class="premium-marquee">
     Powered By : ToXic 🎯 | Fast Video Upload & Download 🎞️
 </div><header>
-    <!-- Telegram Button -->
+    <!-- Modern Telegram Button -->
     <a href="https://t.me/toXic_u0u" class="telegram-header-btn" target="_blank">Telegram</a>
     <!-- Media Gallery Button -->
     <button onclick="openGallery()">📁 Media Gallery</button>
