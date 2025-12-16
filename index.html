@@ -16,12 +16,12 @@
 
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Inter',sans-serif;}
 
-/* Prevent pull-to-refresh */
+/* Page scroll & prevent pull-to-refresh */
 html, body {
     height:100%;
-    overscroll-behavior-x: none;
-    overscroll-behavior-y: none;
-    -webkit-overflow-scrolling: touch;
+    overflow:auto; /* enable scroll */
+    overscroll-behavior-y: contain; /* prevent pull-to-refresh */
+    -webkit-overflow-scrolling: touch; 
     background:var(--bg);
     color:var(--text);
 }
@@ -120,13 +120,19 @@ Official Video Library • Powered by ToXic
 window.onload = () => {
     loadVideos();
 
-    // Disable pull-to-refresh on mobile
-    document.body.addEventListener('touchmove', function(e) {
-        if ((window.scrollY === 0 && e.touches[0].clientY > 0) ||
-            (window.innerHeight + window.scrollY >= document.body.offsetHeight && e.touches[0].clientY < 0)) {
+    // Prevent pull-to-refresh on mobile
+    let startY = 0;
+    document.body.addEventListener('touchstart', function(e){
+        startY = e.touches[0].clientY;
+    }, {passive:false});
+
+    document.body.addEventListener('touchmove', function(e){
+        let currentY = e.touches[0].clientY;
+        if ((window.scrollY === 0 && currentY > startY) ||
+            (window.innerHeight + window.scrollY >= document.body.offsetHeight && currentY < startY)) {
             e.preventDefault();
         }
-    }, { passive: false });
+    }, {passive:false});
 
     // Show ad after 30 seconds
     setTimeout(showAd, 30000);
