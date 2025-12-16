@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gallery</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+body{margin:0;font-family:'Inter',sans-serif;background:#f1f5f9;}
+header{background:linear-gradient(135deg,#2563eb,#1e40af);padding:14px 18px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;color:white;}
+header a{background:white;color:#2563eb;padding:8px 14px;border-radius:10px;text-decoration:none;font-weight:600;}
+#galleryPage{padding:16px;display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:12px;max-width:1200px;margin:auto;}
+#galleryPage img{width:100%;height:90px;object-fit:cover;border-radius:10px;cursor:pointer;transition:.2s;}
+#galleryPage img:hover{transform:scale(1.05);}
+</style>
+</head>
+<body>
+
+<header>
+<h1>Gallery</h1>
+<a href="index.html">Back</a>
+</header>
+
+<div id="galleryPage"></div>
+
+<script>
+window.onload = loadVideos;
+
+function loadVideos(){
+    const apiKey="AIzaSyD7fZ8nt8LFa9iY8GfDBfhakIR2aqSE-Ms";
+    const folderId="1C78cLvYYP2AHaalMutvlJaNx0UjtgcIq";
+
+    fetch(`https://www.googleapis.com/drive/v3/files?q='${folderId}'+in+parents&key=${apiKey}&fields=files(id,name,mimeType)`)
+    .then(r=>r.json())
+    .then(data=>{
+        const gallery=document.getElementById("galleryPage");
+        gallery.innerHTML="";
+        data.files.forEach(f=>{
+            if(f.mimeType.includes("video")){
+                gallery.innerHTML+=`
+                <img src="https://drive.google.com/thumbnail?id=${f.id}&sz=w300" onclick="openVideo('${f.id}')" title="${f.name}">
+                `;
+            }
+        });
+    });
+}
+
+function openVideo(id){
+    window.location.href=`https://drive.google.com/file/d/${id}/preview`;
+}
+</script>
+
+</body>
+</html>
