@@ -120,7 +120,7 @@ Official Video Library • Powered by ToXic
 window.onload = () => {
     loadVideos();
 
-    // Prevent pull-to-refresh and refresh on mobile
+    // Prevent pull-to-refresh on mobile
     let startY = 0;
     document.body.addEventListener('touchstart', function(e){
         startY = e.touches[0].clientY;
@@ -134,13 +134,23 @@ window.onload = () => {
         }
     }, {passive:false});
 
-    // Show ad after 30 seconds
-    setTimeout(showAd, 30000);
+    // Show ad after 30 seconds only if not shown before
+    if(!localStorage.getItem('adShown')){
+        setTimeout(showAd, 30000);
+    }
 };
 
 /* Scroll Buttons */
-function scrollUp(){window.scrollTo({top:0, behavior:'smooth'});}
-function scrollDown(){window.scrollTo({top:document.body.scrollHeight, behavior:'smooth'});}
+function scrollUp(){
+    document.documentElement.scrollTo({top:0, behavior:'smooth'});
+    document.body.scrollTo({top:0, behavior:'smooth'});
+}
+
+function scrollDown(){
+    const scrollHeight = document.documentElement.scrollHeight || document.body.scrollHeight;
+    document.documentElement.scrollTo({top:scrollHeight, behavior:'smooth'});
+    document.body.scrollTo({top:scrollHeight, behavior:'smooth'});
+}
 
 /* Load Google Drive Videos */
 function loadVideos(){
@@ -173,6 +183,9 @@ function showAd(){
 
     adOverlay.style.display = "flex";
     adVideo.play();
+
+    // Mark ad as shown
+    localStorage.setItem('adShown','true');
 
     skipBtn.onclick = closeAd;
     adVideo.onended = closeAd;
