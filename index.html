@@ -15,15 +15,56 @@
 }
 
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Inter',sans-serif;}
-html,body{height:100%;overscroll-behavior:none;}
-body{background:var(--bg);color:var(--text);}
 
-/* Intro Overlay */
-#introScreen{position:fixed;inset:0;background:black;z-index:99999;display:flex;justify-content:center;align-items:center;}
-#introScreen video{width:100%;height:100%;object-fit:cover;}
+/* Prevent pull-to-refresh */
+html, body {
+    height:100%;
+    overscroll-behavior-x: none;
+    overscroll-behavior-y: none;
+    -webkit-overflow-scrolling: touch;
+    background:var(--bg);
+    color:var(--text);
+}
+
+/* Ad Overlay */
+#adOverlay{
+    position:fixed;
+    inset:0;
+    background:black;
+    z-index:99999;
+    display:none;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+}
+#adOverlay video{
+    width:90%;
+    max-width:600px;
+    height:auto;
+    border-radius:12px;
+}
+#skipAdBtn{
+    margin-top:12px;
+    background:white;
+    color:black;
+    border:none;
+    padding:8px 16px;
+    border-radius:10px;
+    font-weight:700;
+    cursor:pointer;
+}
 
 /* Header */
-header{background:linear-gradient(135deg,var(--primary),var(--secondary));padding:14px 18px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:1000;}
+header{
+    background:linear-gradient(135deg,var(--primary),var(--secondary));
+    padding:14px 18px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    position:sticky;
+    top:0;
+    z-index:1000;
+}
 header h1{font-size:18px;color:white;font-weight:700;}
 header .actions{display:flex;gap:10px;}
 header a{background:white;color:var(--primary);border:none;padding:8px 14px;border-radius:10px;font-weight:600;cursor:pointer;text-decoration:none;}
@@ -49,9 +90,10 @@ header a{background:white;color:var(--primary);border:none;padding:8px 14px;bord
 </head>
 <body>
 
-<!-- Intro Video Overlay -->
-<div id="introScreen">
-    <video id="introVideo" src="https://raw.githubusercontent.com/Robin-Ahmed/my-html-app/main/December%203%2C%202025.mp4"></video>
+<!-- Ad Overlay -->
+<div id="adOverlay">
+    <video id="adVideo" src="https://raw.githubusercontent.com/Robin-Ahmed/my-html-app/main/AdVideo.mp4"></video>
+    <button id="skipAdBtn">Skip Ad</button>
 </div>
 
 <header>
@@ -76,28 +118,25 @@ Official Video Library • Powered by ToXic
 
 <script>
 window.onload = () => {
-    playIntro();
     loadVideos();
+
+    // Disable pull-to-refresh on mobile
+    document.body.addEventListener('touchmove', function(e) {
+        if ((window.scrollY === 0 && e.touches[0].clientY > 0) ||
+            (window.innerHeight + window.scrollY >= document.body.offsetHeight && e.touches[0].clientY < 0)) {
+            e.preventDefault();
+        }
+    }, { passive: false });
+
+    // Show ad after 30 seconds
+    setTimeout(showAd, 30000);
 };
 
-/* Intro */
-function playIntro(){
-    const intro = document.getElementById("introScreen");
-    const video = document.getElementById("introVideo");
-    intro.style.display = "flex";
-    video.play();
-    video.onended = closeIntro;
-    intro.onclick = closeIntro;
-}
-function closeIntro(){
-    document.getElementById("introScreen").style.display = "none";
-}
-
-/* Scroll Functions */
+/* Scroll Buttons */
 function scrollUp(){window.scrollTo({top:0, behavior:'smooth'});}
 function scrollDown(){window.scrollTo({top:document.body.scrollHeight, behavior:'smooth'});}
 
-/* Load Videos from Google Drive */
+/* Load Google Drive Videos */
 function loadVideos(){
     const apiKey="AIzaSyD7fZ8nt8LFa9iY8GfDBfhakIR2aqSE-Ms";
     const folderId="1C78cLvYYP2AHaalMutvlJaNx0UjtgcIq";
@@ -119,6 +158,27 @@ function loadVideos(){
         });
     });
 }
+
+/* Ad Video Functions */
+function showAd(){
+    const adOverlay = document.getElementById("adOverlay");
+    const adVideo = document.getElementById("adVideo");
+    const skipBtn = document.getElementById("skipAdBtn");
+
+    adOverlay.style.display = "flex";
+    adVideo.play();
+
+    skipBtn.onclick = closeAd;
+    adVideo.onended = closeAd;
+}
+
+function closeAd(){
+    const adOverlay = document.getElementById("adOverlay");
+    const adVideo = document.getElementById("adVideo");
+    adVideo.pause();
+    adOverlay.style.display = "none";
+}
 </script>
+
 </body>
 </html>
