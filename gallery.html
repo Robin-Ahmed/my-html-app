@@ -15,44 +15,15 @@
 }
 
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Inter',sans-serif;}
-
-/* Prevent pull-to-refresh */
-html, body {
-    height:100%;
-    overscroll-behavior-x: none;
-    overscroll-behavior-y: none;
-    -webkit-overflow-scrolling: touch;
-    background:var(--bg);
-    color:var(--text);
-}
+html,body{height:100%;overscroll-behavior:none;}
+body{background:var(--bg);color:var(--text);}
 
 /* Intro Overlay */
-#introScreen{
-    position:fixed;
-    inset:0;
-    background:black;
-    z-index:99999;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-}
-#introScreen video{
-    width:100%;
-    height:100%;
-    object-fit:cover;
-}
+#introScreen{position:fixed;inset:0;background:black;z-index:99999;display:flex;justify-content:center;align-items:center;}
+#introScreen video{width:100%;height:100%;object-fit:cover;}
 
 /* Header */
-header{
-    background:linear-gradient(135deg,var(--primary),var(--secondary));
-    padding:14px 18px;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    position:sticky;
-    top:0;
-    z-index:1000;
-}
+header{background:linear-gradient(135deg,var(--primary),var(--secondary));padding:14px 18px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:1000;}
 header h1{font-size:18px;color:white;font-weight:700;}
 header .actions{display:flex;gap:10px;}
 header a{background:white;color:var(--primary);border:none;padding:8px 14px;border-radius:10px;font-weight:600;cursor:pointer;text-decoration:none;}
@@ -107,17 +78,9 @@ Official Video Library • Powered by ToXic
 window.onload = () => {
     playIntro();
     loadVideos();
-
-    // Disable pull-to-refresh on mobile
-    document.body.addEventListener('touchmove', function(e) {
-        if ((window.scrollY === 0 && e.touches[0].clientY > 0) ||
-            (window.innerHeight + window.scrollY >= document.body.offsetHeight && e.touches[0].clientY < 0)) {
-            e.preventDefault();
-        }
-    }, { passive: false });
 };
 
-/* Intro Overlay */
+/* Intro */
 function playIntro(){
     const intro = document.getElementById("introScreen");
     const video = document.getElementById("introVideo");
@@ -130,15 +93,11 @@ function closeIntro(){
     document.getElementById("introScreen").style.display = "none";
 }
 
-/* Scroll Buttons */
-function scrollUp(){
-    window.scrollTo({top:0, behavior:'smooth'});
-}
-function scrollDown(){
-    window.scrollTo({top:document.body.scrollHeight, behavior:'smooth'});
-}
+/* Scroll Functions */
+function scrollUp(){window.scrollTo({top:0, behavior:'smooth'});}
+function scrollDown(){window.scrollTo({top:document.body.scrollHeight, behavior:'smooth'});}
 
-/* Load Google Drive Videos */
+/* Load Videos from Google Drive */
 function loadVideos(){
     const apiKey="AIzaSyD7fZ8nt8LFa9iY8GfDBfhakIR2aqSE-Ms";
     const folderId="1C78cLvYYP2AHaalMutvlJaNx0UjtgcIq";
