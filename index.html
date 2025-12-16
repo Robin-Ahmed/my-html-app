@@ -16,12 +16,12 @@
 
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Inter',sans-serif;}
 
-/* Page scroll & prevent pull-to-refresh */
+/* Page scroll & prevent refresh */
 html, body {
     height:100%;
     overflow:auto; /* enable scroll */
-    overscroll-behavior-y: contain; /* prevent pull-to-refresh */
-    -webkit-overflow-scrolling: touch; 
+    overscroll-behavior: contain; /* prevent pull-to-refresh */
+    -webkit-overflow-scrolling: touch;
     background:var(--bg);
     color:var(--text);
 }
@@ -120,7 +120,7 @@ Official Video Library • Powered by ToXic
 window.onload = () => {
     loadVideos();
 
-    // Prevent pull-to-refresh on mobile
+    // Prevent pull-to-refresh and refresh on mobile
     let startY = 0;
     document.body.addEventListener('touchstart', function(e){
         startY = e.touches[0].clientY;
@@ -130,7 +130,7 @@ window.onload = () => {
         let currentY = e.touches[0].clientY;
         if ((window.scrollY === 0 && currentY > startY) ||
             (window.innerHeight + window.scrollY >= document.body.offsetHeight && currentY < startY)) {
-            e.preventDefault();
+            e.preventDefault(); // block overscroll refresh
         }
     }, {passive:false});
 
