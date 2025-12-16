@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Secure Access</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root{
+    --primary:#2563eb;
+    --danger:#ef4444;
+    --bg:#0f172a;
+    --card:#ffffff;
+    --text:#1e293b;
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Inter',sans-serif;
+}
+
+body{
+    height:100vh;
+    background:linear-gradient(135deg,#020617,#0f172a);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+/* Card */
+.lock-card{
+    width:100%;
+    max-width:360px;
+    background:var(--card);
+    border-radius:16px;
+    padding:26px 22px;
+    text-align:center;
+    box-shadow:0 20px 40px rgba(0,0,0,.35);
+}
+
+/* Lock Icon */
+.lock-icon{
+    font-size:42px;
+    margin-bottom:10px;
+}
+
+/* Title */
+.lock-card h2{
+    font-size:20px;
+    margin-bottom:6px;
+    color:#020617;
+}
+.lock-card p{
+    font-size:14px;
+    color:#475569;
+    margin-bottom:18px;
+}
+
+/* Input */
+.pin-input{
+    width:100%;
+    padding:14px;
+    font-size:18px;
+    text-align:center;
+    letter-spacing:6px;
+    border-radius:10px;
+    border:1px solid #cbd5f5;
+    outline:none;
+}
+
+/* Button */
+.unlock-btn{
+    width:100%;
+    margin-top:14px;
+    padding:12px;
+    border:none;
+    border-radius:10px;
+    background:var(--primary);
+    color:white;
+    font-size:16px;
+    font-weight:600;
+    cursor:pointer;
+}
+
+/* Error */
+.error{
+    margin-top:10px;
+    font-size:14px;
+    color:var(--danger);
+    display:none;
+}
+
+/* Admin */
+.admin-box{
+    margin-top:18px;
+    padding-top:12px;
+    border-top:1px dashed #cbd5f5;
+    font-size:14px;
+}
+.admin-box a{
+    display:inline-block;
+    margin-top:6px;
+    padding:8px 14px;
+    background:#e0f2fe;
+    color:#0369a1;
+    border-radius:8px;
+    text-decoration:none;
+    font-weight:600;
+}
+</style>
+</head>
+
+<body>
+
+<div class="lock-card">
+    <div class="lock-icon">🔐</div>
+    <h2>Secure Access</h2>
+    <p>Enter PIN to continue</p>
+
+    <input type="password" id="pinInput" class="pin-input" placeholder="● ● ● ●" maxlength="4">
+
+    <button class="unlock-btn" onclick="checkPin()">Unlock</button>
+
+    <div id="errorMsg" class="error">❌ Wrong PIN Code</div>
+
+    <div class="admin-box">
+        Having trouble?
+        <br>
+        <a href="https://t.me/toXic_u0u" target="_blank">Contact Admin</a>
+    </div>
+</div>
+
+<script>
+const CORRECT_PIN = "3224";
+
+function checkPin(){
+    const input = document.getElementById("pinInput").value;
+    const error = document.getElementById("errorMsg");
+
+    if(input === CORRECT_PIN){
+        // Access granted
+        window.location.href = "index.html"; // main page
+    }else{
+        error.style.display = "block";
+        document.getElementById("pinInput").value = "";
+    }
+}
+</script>
+
+</body>
+</html>
