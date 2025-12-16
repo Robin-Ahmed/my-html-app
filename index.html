@@ -150,24 +150,9 @@ header a{
 <body>
 
 <!-- ===== INTRO VIDEO ===== -->
-<script>
-window.onload = () => {
-    playIntro();
-    loadVideos();
-};
-    
-    function playIntro(){
-    const intro = document.getElementById("introScreen");
-    const video = document.getElementById("introVideo");
-    intro.style.display = "flex";
-    video.play();
-    video.onended = closeIntro;
-    intro.onclick = closeIntro;
-}
-function closeIntro(){
-    document.getElementById("introScreen").style.display = "none";
-}
-
+<div id="introOverlay">
+    <video id="introVideo" playsinline muted></video>
+</div>
 <header>
     <h1>Media Gallery</h1>
     <div class="actions">
