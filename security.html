@@ -5,84 +5,58 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Secure Access</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 
 <style>
-:root{
-    --primary:#2563eb;
-    --danger:#ef4444;
-    --bg:#020617;
-    --card:#ffffff;
-    --text:#0f172a;
-}
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Inter',sans-serif;}
-
 body{
+    margin:0;
     height:100vh;
-    background:linear-gradient(135deg,#020617,#0f172a);
     display:flex;
     align-items:center;
     justify-content:center;
+    background:linear-gradient(135deg,#0f172a,#1e3a8a);
+    font-family:'Inter',sans-serif;
 }
-
-.lock-card{
-    width:100%;
-    max-width:360px;
-    background:var(--card);
+.lock-box{
+    background:white;
+    padding:28px;
+    width:320px;
     border-radius:16px;
-    padding:26px 22px;
+    box-shadow:0 20px 50px rgba(0,0,0,.3);
     text-align:center;
-    box-shadow:0 20px 40px rgba(0,0,0,.4);
 }
-
-.lock-icon{font-size:42px;margin-bottom:10px;}
-.lock-card h2{font-size:20px;margin-bottom:6px;}
-.lock-card p{font-size:14px;color:#475569;margin-bottom:18px;}
-
-.pin-input{
+.lock-box h2{margin-bottom:14px;}
+input{
     width:100%;
-    padding:14px;
+    padding:12px;
     font-size:18px;
     text-align:center;
-    letter-spacing:6px;
     border-radius:10px;
     border:1px solid #cbd5f5;
     outline:none;
 }
-
-.unlock-btn{
+button{
     width:100%;
     margin-top:14px;
     padding:12px;
+    background:#2563eb;
+    color:white;
     border:none;
     border-radius:10px;
-    background:var(--primary);
-    color:white;
     font-size:16px;
     font-weight:600;
     cursor:pointer;
 }
-
 .error{
+    color:red;
     margin-top:10px;
-    font-size:14px;
-    color:var(--danger);
     display:none;
 }
-
-.admin-box{
-    margin-top:18px;
-    padding-top:12px;
-    border-top:1px dashed #cbd5f5;
-    font-size:14px;
+.telegram{
+    margin-top:14px;
 }
-.admin-box a{
-    display:inline-block;
-    margin-top:6px;
-    padding:8px 14px;
-    background:#e0f2fe;
-    color:#0369a1;
-    border-radius:8px;
+.telegram a{
+    color:#2563eb;
     text-decoration:none;
     font-weight:600;
 }
@@ -91,35 +65,28 @@ body{
 
 <body>
 
-<div class="lock-card">
-    <div class="lock-icon">🔐</div>
-    <h2>Secure Access</h2>
-    <p>Enter PIN to continue</p>
-
-    <input type="password" id="pinInput" class="pin-input" maxlength="4" placeholder="● ● ● ●">
-
-    <button class="unlock-btn" onclick="checkPin()">Unlock</button>
-
-    <div id="errorMsg" class="error">❌ Wrong PIN Code</div>
-
-    <div class="admin-box">
-        Forgot PIN?
-        <br>
+<div class="lock-box">
+    <h2>🔐 Secure Access</h2>
+    <input type="password" id="pin" placeholder="Enter PIN">
+    <button onclick="unlock()">Unlock</button>
+    <div id="error" class="error">❌ Wrong PIN</div>
+    <div class="telegram">
         <a href="https://t.me/toXic_u0u" target="_blank">Contact Admin</a>
     </div>
 </div>
 
 <script>
-function checkPin(){
-    const pin = document.getElementById("pinInput").value;
-    const error = document.getElementById("errorMsg");
+const PIN = "3224";
 
-    if(pin === "7591"){
-        // NO SAVE — always ask PIN
-        window.location.replace("index.html");
+function unlock(){
+    const input = document.getElementById("pin").value;
+    if(input === PIN){
+        // SESSION ONLY (reload করলে আবার চাইবে)
+        sessionStorage.setItem("unlocked","yes");
+        window.location.href = "index.html";
     }else{
-        error.style.display = "block";
-        document.getElementById("pinInput").value = "";
+        document.getElementById("error").style.display="block";
+        document.getElementById("pin").value="";
     }
 }
 </script>
