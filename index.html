@@ -144,9 +144,9 @@ window.onload = () => {
         }
     }, {passive:false});
 
-    // Show ad after 30 seconds only if not shown before
+    // Show ad after 10 seconds only if not shown before
     if(!localStorage.getItem('adShown')){
-        setTimeout(showAd, 30000);
+        setTimeout(showAd, 10000); // 10000 ms = 10 seconds
     }
 };
 
@@ -191,6 +191,7 @@ function showAd(){
     const skipBtn = document.getElementById("skipAdBtn");
 
     adOverlay.style.display = "flex";
+    adVideo.muted = true; // Autoplay compatible
     adVideo.play();
 
     // Mark ad as shown
