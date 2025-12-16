@@ -16,6 +16,7 @@
     --text:#0f172a;
 }
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Inter',sans-serif;}
+
 body{
     height:100vh;
     background:linear-gradient(135deg,#020617,#0f172a);
@@ -23,6 +24,7 @@ body{
     align-items:center;
     justify-content:center;
 }
+
 .lock-card{
     width:100%;
     max-width:360px;
@@ -32,9 +34,11 @@ body{
     text-align:center;
     box-shadow:0 20px 40px rgba(0,0,0,.4);
 }
+
 .lock-icon{font-size:42px;margin-bottom:10px;}
 .lock-card h2{font-size:20px;margin-bottom:6px;}
 .lock-card p{font-size:14px;color:#475569;margin-bottom:18px;}
+
 .pin-input{
     width:100%;
     padding:14px;
@@ -43,7 +47,9 @@ body{
     letter-spacing:6px;
     border-radius:10px;
     border:1px solid #cbd5f5;
+    outline:none;
 }
+
 .unlock-btn{
     width:100%;
     margin-top:14px;
@@ -56,12 +62,14 @@ body{
     font-weight:600;
     cursor:pointer;
 }
+
 .error{
     margin-top:10px;
     font-size:14px;
     color:var(--danger);
     display:none;
 }
+
 .admin-box{
     margin-top:18px;
     padding-top:12px;
@@ -95,7 +103,7 @@ body{
     <div id="errorMsg" class="error">❌ Wrong PIN Code</div>
 
     <div class="admin-box">
-        Need help?
+        Forgot PIN?
         <br>
         <a href="https://t.me/toXic_u0u" target="_blank">Contact Admin</a>
     </div>
@@ -106,9 +114,9 @@ function checkPin(){
     const pin = document.getElementById("pinInput").value;
     const error = document.getElementById("errorMsg");
 
-    if(pin === "3225"){
-        localStorage.setItem("secureAccess","true");
-        window.location.href = "index.html";
+    if(pin === "3224"){
+        // NO SAVE — always ask PIN
+        window.location.replace("index.html");
     }else{
         error.style.display = "block";
         document.getElementById("pinInput").value = "";
