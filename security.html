@@ -17,6 +17,7 @@ body{
     justify-content:center;
     background:linear-gradient(135deg,#0f172a,#1e3a8a);
     font-family:'Inter',sans-serif;
+    overflow:hidden;
 }
 
 /* ===== LOCK BOX ===== */
@@ -31,7 +32,7 @@ body{
     overflow:hidden;
 }
 
-/* Gradient animated circle for effect */
+/* Gradient animated circle */
 .lock-box::before{
     content:"";
     position:absolute;
@@ -43,6 +44,12 @@ body{
     left:-150px;
     opacity:0.15;
     z-index:0;
+    animation: pulse 3s infinite alternate;
+}
+@keyframes pulse{
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
 }
 
 /* ===== HEADLINE ===== */
@@ -70,7 +77,19 @@ input{
 }
 input:focus{
     border-color:#2563eb;
-    box-shadow:0 0 8px rgba(37,99,235,0.4);
+    box-shadow:0 0 10px rgba(37,99,235,0.5);
+}
+
+/* Shake animation for wrong PIN */
+input.shake{
+    animation: shake 0.4s;
+}
+@keyframes shake{
+    0% { transform: translateX(0); }
+    25% { transform: translateX(-8px); }
+    50% { transform: translateX(8px); }
+    75% { transform: translateX(-8px); }
+    100% { transform: translateX(0); }
 }
 
 /* ===== BUTTON ===== */
@@ -94,6 +113,16 @@ button:hover{
     box-shadow:0 8px 18px rgba(37,99,235,0.4);
 }
 
+/* Success flash animation */
+.lock-box.success{
+    animation: successFlash 0.6s;
+}
+@keyframes successFlash{
+    0% { box-shadow:0 25px 60px rgba(0,0,0,.35);}
+    50% { box-shadow:0 25px 60px rgba(37,99,235,.7);}
+    100% { box-shadow:0 25px 60px rgba(0,0,0,.35);}
+}
+
 /* ===== ERROR MESSAGE ===== */
 .error{
     color:#ef4444;
@@ -102,6 +131,11 @@ button:hover{
     display:none;
     z-index:1;
     position:relative;
+    animation: fadeIn 0.4s;
+}
+@keyframes fadeIn{
+    0%{opacity:0;}
+    100%{opacity:1;}
 }
 
 /* ===== TELEGRAM LINK ===== */
@@ -113,11 +147,17 @@ button:hover{
 .telegram a{
     color:#2563eb;
     text-decoration:none;
-    font-weight:600;
-    transition:0.3s;
+    font-weight:700;
+    transition:0.5s;
+    animation: blink 1.5s infinite;
 }
 .telegram a:hover{
     text-decoration:underline;
+    color:#1e40af;
+}
+@keyframes blink{
+    0%,50%,100%{opacity:1;}
+    25%,75%{opacity:0.5;}
 }
 
 /* ===== RESPONSIVE ===== */
@@ -136,7 +176,7 @@ button:hover{
 
 <body>
 
-<div class="lock-box">
+<div class="lock-box" id="lockBox">
     <h2>🔐 Secure Access</h2>
     <input type="password" id="pin" placeholder="Enter PIN">
     <button onclick="unlock()">Unlock</button>
@@ -148,15 +188,28 @@ button:hover{
 
 <script>
 const PIN = "3222";
+let attempts = 0;
 
 function unlock(){
-    const input = document.getElementById("pin").value;
-    if(input === PIN){
+    const input = document.getElementById("pin");
+    const val = input.value;
+
+    if(val === PIN){
+        const lockBox = document.getElementById("lockBox");
+        lockBox.classList.add("success");
         sessionStorage.setItem("unlocked","yes");
-        window.location.href = "index.html";
-    }else{
+        setTimeout(()=>window.location.href="index.html",600);
+    } else {
+        attempts++;
         document.getElementById("error").style.display="block";
-        document.getElementById("pin").value="";
+        input.value="";
+        input.classList.remove("shake");
+        void input.offsetWidth; // trigger reflow
+        input.classList.add("shake");
+
+        if(attempts >= 3){
+            document.getElementById("error").innerHTML = "❌ Too many attempts! Contact Admin";
+        }
     }
 }
 </script>
