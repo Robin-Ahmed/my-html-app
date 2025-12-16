@@ -7,6 +7,13 @@
 
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
+<script>
+/* ===== SECURITY CHECK ===== */
+if(localStorage.getItem("secureAccess") !== "true"){
+    window.location.href = "security.html";
+}
+</script>
+
 <style>
 :root{
     --primary:#2563eb;
@@ -15,17 +22,14 @@
     --card:#ffffff;
     --text:#0f172a;
 }
-
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Inter',sans-serif;}
-
 html,body{
     height:100%;
     overflow:hidden;
     background:var(--bg);
     color:var(--text);
 }
-
-/* ===== INTRO OVERLAY ===== */
+/* INTRO */
 #introOverlay{
     position:fixed;
     inset:0;
@@ -40,8 +44,7 @@ html,body{
     height:100%;
     object-fit:cover;
 }
-
-/* ===== HEADER ===== */
+/* HEADER */
 header{
     background:linear-gradient(135deg,var(--primary),var(--secondary));
     padding:14px 18px;
@@ -50,7 +53,6 @@ header{
     align-items:center;
     position:sticky;
     top:0;
-    z-index:1000;
 }
 header h1{color:white;font-size:18px;}
 header .actions{display:flex;gap:10px;}
@@ -62,31 +64,23 @@ header a{
     font-weight:600;
     text-decoration:none;
 }
-
-/* ===== INFO BAR ===== */
+/* INFO */
 .info-bar{
     background:white;
     padding:10px;
     text-align:center;
-    font-size:14px;
-    box-shadow:0 2px 8px rgba(0,0,0,.08);
 }
-
-/* ===== SCROLL AREA ===== */
+/* SCROLL */
 #scrollContainer{
     height:calc(100vh - 74px);
     overflow:auto;
-    -webkit-overflow-scrolling:touch;
 }
-
-/* ===== VIDEO GRID ===== */
+/* GRID */
 .video-container{
     display:grid;
     grid-template-columns:repeat(2,1fr);
     gap:14px;
     padding:16px;
-    max-width:1200px;
-    margin:auto;
 }
 .video-card{
     background:white;
@@ -95,15 +89,10 @@ header a{
     box-shadow:0 8px 20px rgba(0,0,0,.08);
 }
 .video-title{
-    padding:10px 12px;
+    padding:10px;
     font-weight:600;
-    background:#f8fafc;
 }
-.video-card iframe{
-    width:100%;
-    height:200px;
-    border:none;
-}
+iframe{width:100%;height:200px;border:none;}
 .download-btn{
     display:block;
     margin:10px;
@@ -112,11 +101,9 @@ header a{
     color:white;
     border-radius:8px;
     text-align:center;
-    font-weight:600;
     text-decoration:none;
 }
-
-/* ===== SCROLL BUTTONS ===== */
+/* SCROLL BTNS */
 .scroll-controls{
     position:fixed;
     right:12px;
@@ -124,7 +111,6 @@ header a{
     display:flex;
     flex-direction:column;
     gap:10px;
-    z-index:999;
 }
 .scroll-controls button{
     width:46px;
@@ -136,30 +122,21 @@ header a{
     font-size:20px;
     cursor:pointer;
 }
-
-/* ===== RESPONSIVE ===== */
-@media(min-width:900px){
-    .video-container{grid-template-columns:repeat(3,1fr);}
-}
-@media(max-width:480px){
-    .video-container{grid-template-columns:1fr;}
-}
 </style>
 </head>
 
 <body>
 
-<!-- ===== INTRO VIDEO ===== -->
 <div id="introOverlay">
     <video id="introVideo" playsinline muted></video>
 </div>
 
 <header>
-    <h1>Media Gallery</h1>
-    <div class="actions">
-        <a href="https://t.me/toXic_u0u" target="_blank">Telegram</a>
-        <a href="gallery.html">Gallery</a>
-    </div>
+<h1>Media Gallery</h1>
+<div class="actions">
+    <a href="https://t.me/toXic_u0u" target="_blank">Telegram</a>
+    <a href="gallery.html">Gallery</a>
+</div>
 </header>
 
 <div class="info-bar">Official Video Library • Powered by ToXic</div>
@@ -174,31 +151,22 @@ header a{
 </div>
 
 <script>
-window.onload = () => {
+window.onload=()=>{
     loadVideos();
     showIntroOnce();
 };
 
-/* ===== INTRO (ONCE) ===== */
 function showIntroOnce(){
     if(localStorage.getItem("introShown")) return;
-
-    const overlay=document.getElementById("introOverlay");
-    const video=document.getElementById("introVideo");
-
-    overlay.style.display="flex";
-    video.src="https://raw.githubusercontent.com/Robin-Ahmed/my-html-app/main/AdVideo.mp4";
-    video.play();
-
+    const o=document.getElementById("introOverlay");
+    const v=document.getElementById("introVideo");
+    o.style.display="flex";
+    v.src="https://raw.githubusercontent.com/Robin-Ahmed/my-html-app/main/AdVideo.mp4";
+    v.play();
     localStorage.setItem("introShown","true");
-
-    video.onended=closeIntro;
-}
-function closeIntro(){
-    document.getElementById("introOverlay").style.display="none";
+    v.onended=()=>o.style.display="none";
 }
 
-/* ===== SCROLL BUTTONS ===== */
 function scrollUp(){
     document.getElementById("scrollContainer")
       .scrollTo({top:0,behavior:'smooth'});
@@ -208,11 +176,9 @@ function scrollDown(){
     c.scrollTo({top:c.scrollHeight,behavior:'smooth'});
 }
 
-/* ===== LOAD VIDEOS ===== */
 function loadVideos(){
     const apiKey="AIzaSyD7fZ8nt8LFa9iY8GfDBfhakIR2aqSE-Ms";
     const folderId="1C78cLvYYP2AHaalMutvlJaNx0UjtgcIq";
-
     fetch(`https://www.googleapis.com/drive/v3/files?q='${folderId}'+in+parents&key=${apiKey}&fields=files(id,name,mimeType)`)
     .then(r=>r.json())
     .then(d=>{
