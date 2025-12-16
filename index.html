@@ -24,6 +24,12 @@
     font-family:'Inter',sans-serif;
 }
 
+/* 🚫 Pull to Refresh Disable */
+html,body{
+    height:100%;
+    overscroll-behavior: none;
+}
+
 body{
     background:var(--bg);
     color:var(--text);
@@ -101,10 +107,6 @@ header a, header button{
     border-radius:14px;
     overflow:hidden;
     box-shadow:0 8px 20px rgba(0,0,0,.08);
-    transition:.25s;
-}
-.video-card:hover{
-    transform:translateY(-4px);
 }
 
 .video-title{
@@ -143,47 +145,28 @@ header a, header button{
     font-size:18px;
 }
 
-/* ================= GALLERY MODAL ================= */
-#galleryModal{
-    display:none;
+/* ================= SCROLL BUTTONS ================= */
+.scroll-controls{
     position:fixed;
-    inset:0;
-    background:rgba(15,23,42,.96);
-    z-index:2000;
-    padding:16px;
-    overflow-y:auto;
-    -webkit-overflow-scrolling:touch;
+    right:12px;
+    bottom:80px;
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+    z-index:999;
 }
 
-.closeBtn{
-    background:white;
-    color:black;
+.scroll-controls button{
+    width:46px;
+    height:46px;
     border:none;
-    padding:10px 16px;
-    border-radius:10px;
-    font-weight:700;
-    position:sticky;
-    top:0;
-    z-index:10;
-}
-
-.gallery-grid{
-    margin-top:16px;
-    display:grid;
-    grid-template-columns:repeat(auto-fill,minmax(110px,1fr));
-    gap:12px;
-}
-
-.gallery-grid img{
-    width:100%;
-    height:90px;
-    object-fit:cover;
-    border-radius:10px;
+    border-radius:50%;
+    background:var(--primary);
+    color:white;
+    font-size:20px;
+    font-weight:bold;
     cursor:pointer;
-    transition:.2s;
-}
-.gallery-grid img:hover{
-    transform:scale(1.05);
+    box-shadow:0 6px 16px rgba(0,0,0,.25);
 }
 
 /* ================= RESPONSIVE ================= */
@@ -200,15 +183,28 @@ header a, header button{
 </style>
 
 <script>
-window.onload=()=>playIntro();
+window.onload=()=>{
+    if(!localStorage.getItem("introPlayed")){
+        playIntro();
+    }else{
+        checkInternet();
+    }
+};
 
-/* ===== INTRO ===== */
+/* ===== INTRO (ONLY ONCE) ===== */
 function playIntro(){
     const intro=document.getElementById("introScreen");
     const video=document.getElementById("introVideo");
+    intro.style.display="block";
     video.play();
-    video.onended=()=>{intro.style.display="none";checkInternet();}
-    intro.onclick=()=>{intro.style.display="none";checkInternet();}
+    video.onended=closeIntro;
+    intro.onclick=closeIntro;
+}
+
+function closeIntro(){
+    localStorage.setItem("introPlayed","yes");
+    document.getElementById("introScreen").style.display="none";
+    checkInternet();
 }
 
 /* ===== INTERNET CHECK ===== */
@@ -232,10 +228,7 @@ function loadVideos(){
     .then(r=>r.json())
     .then(data=>{
         const list=document.getElementById("videoList");
-        const gallery=document.getElementById("galleryGrid");
         list.innerHTML="";
-        gallery.innerHTML="";
-
         data.files.forEach(f=>{
             if(f.mimeType.includes("video")){
                 list.innerHTML+=`
@@ -244,27 +237,17 @@ function loadVideos(){
                     <iframe src="https://drive.google.com/file/d/${f.id}/preview" allowfullscreen></iframe>
                     <a class="download-btn" href="https://drive.google.com/uc?export=download&id=${f.id}">Download</a>
                 </div>`;
-
-                gallery.innerHTML+=`
-                <img 
-                src="https://drive.google.com/thumbnail?id=${f.id}&sz=w300"
-                onclick="openVideo('${f.id}')"
-                title="${f.name}">
-                `;
             }
         });
     });
 }
 
-/* ===== GALLERY ===== */
-function openVideo(id){
-    window.location.href=`https://drive.google.com/file/d/${id}/preview`;
+/* ===== SCROLL FUNCTIONS ===== */
+function scrollUp(){
+    window.scrollTo({top:0,behavior:'smooth'});
 }
-function openGallery(){
-    document.getElementById("galleryModal").style.display="block";
-}
-function closeGallery(){
-    document.getElementById("galleryModal").style.display="none";
+function scrollDown(){
+    window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'});
 }
 </script>
 </head>
@@ -272,7 +255,7 @@ function closeGallery(){
 <body>
 
 <!-- INTRO -->
-<div id="introScreen">
+<div id="introScreen" style="display:none">
 <video id="introVideo" src="https://raw.githubusercontent.com/Robin-Ahmed/my-html-app/main/December%203%2C%202025.mp4"></video>
 </div>
 
@@ -280,7 +263,6 @@ function closeGallery(){
 <h1>Media Gallery</h1>
 <div class="actions">
 <a href="https://t.me/toXic_u0u" target="_blank">Telegram</a>
-<button onclick="openGallery()">Gallery</button>
 </div>
 </header>
 
@@ -288,16 +270,14 @@ function closeGallery(){
 Official Video Library • Powered by ToXic
 </div>
 
-<div id="no-internet">
-No Internet Connection ❌
-</div>
+<div id="no-internet">No Internet Connection ❌</div>
 
 <div id="videoList" class="video-container"></div>
 
-<!-- GALLERY MODAL -->
-<div id="galleryModal">
-<button class="closeBtn" onclick="closeGallery()">Close ✖</button>
-<div id="galleryGrid" class="gallery-grid"></div>
+<!-- SCROLL BUTTONS -->
+<div class="scroll-controls">
+<button onclick="scrollUp()">⬆</button>
+<button onclick="scrollDown()">⬇</button>
 </div>
 
 </body>
