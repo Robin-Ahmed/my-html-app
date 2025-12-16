@@ -7,9 +7,9 @@
 
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-<!-- 🔐 FORCE SECURITY EVERY TIME -->
+<!-- 🔐 SECURITY CHECK -->
 <script>
-if (document.referrer.indexOf("security.html") === -1) {
+if(sessionStorage.getItem("unlocked") !== "yes"){
     window.location.replace("security.html");
 }
 </script>
@@ -30,6 +30,33 @@ html,body{
     overflow:hidden;
     background:var(--bg);
     color:var(--text);
+}
+
+/* ===== INTRO OVERLAY ===== */
+#introOverlay{
+    position:fixed;
+    inset:0;
+    background:black;
+    z-index:99999;
+    display:none;
+    justify-content:center;
+    align-items:center;
+}
+#introOverlay video{
+    width:90%;
+    max-width:600px;
+    border-radius:12px;
+}
+#skipIntroBtn{
+    position:absolute;
+    top:20px;
+    right:20px;
+    padding:10px 16px;
+    background:white;
+    border:none;
+    border-radius:10px;
+    font-weight:700;
+    cursor:pointer;
 }
 
 /* ===== HEADER ===== */
@@ -140,6 +167,12 @@ header a{
 
 <body>
 
+<!-- ===== INTRO VIDEO OVERLAY ===== -->
+<div id="introOverlay">
+    <video id="introVideo" playsinline></video>
+    <button id="skipIntroBtn" onclick="closeIntro()">Skip</button>
+</div>
+
 <header>
     <h1>Media Gallery</h1>
     <div class="actions">
@@ -164,19 +197,35 @@ Official Video Library • Powered by ToXic
 <script>
 window.onload = () => {
     loadVideos();
+    showIntroOnce();
 };
 
-/* ===== SCROLL ===== */
+/* ===== INTRO LOGIC ===== */
+function showIntroOnce(){
+    if(localStorage.getItem("introShown")) return; // already shown
+    const overlay = document.getElementById("introOverlay");
+    const video = document.getElementById("introVideo");
+    overlay.style.display = "flex";
+    video.src = "https://raw.githubusercontent.com/Robin-Ahmed/my-html-app/main/AdVideo.mp4";
+    video.play();
+    localStorage.setItem("introShown","true");
+    video.onended = closeIntro;
+}
+function closeIntro(){
+    document.getElementById("introOverlay").style.display = "none";
+}
+
+/* ===== SCROLL BUTTONS ===== */
 function scrollUp(){
     document.getElementById("scrollContainer")
         .scrollTo({top:0,behavior:'smooth'});
 }
 function scrollDown(){
-    const c=document.getElementById("scrollContainer");
+    const c = document.getElementById("scrollContainer");
     c.scrollTo({top:c.scrollHeight,behavior:'smooth'});
 }
 
-/* ===== LOAD VIDEOS ===== */
+/* ===== LOAD GOOGLE DRIVE VIDEOS ===== */
 function loadVideos(){
     const apiKey="AIzaSyD7fZ8nt8LFa9iY8GfDBfhakIR2aqSE-Ms";
     const folderId="1C78cLvYYP2AHaalMutvlJaNx0UjtgcIq";
