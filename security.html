@@ -8,6 +8,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 
 <style>
+/* ===== BODY ===== */
 body{
     margin:0;
     height:100vh;
@@ -17,48 +18,118 @@ body{
     background:linear-gradient(135deg,#0f172a,#1e3a8a);
     font-family:'Inter',sans-serif;
 }
+
+/* ===== LOCK BOX ===== */
 .lock-box{
     background:white;
-    padding:28px;
-    width:320px;
-    border-radius:16px;
-    box-shadow:0 20px 50px rgba(0,0,0,.3);
+    padding:36px 28px;
+    width:350px;
+    border-radius:20px;
+    box-shadow:0 25px 60px rgba(0,0,0,.35);
     text-align:center;
+    position:relative;
+    overflow:hidden;
 }
-.lock-box h2{margin-bottom:14px;}
+
+/* Gradient animated circle for effect */
+.lock-box::before{
+    content:"";
+    position:absolute;
+    width:300px;
+    height:300px;
+    background:radial-gradient(circle, #2563eb, #1e40af);
+    border-radius:50%;
+    top:-150px;
+    left:-150px;
+    opacity:0.15;
+    z-index:0;
+}
+
+/* ===== HEADLINE ===== */
+.lock-box h2{
+    margin-bottom:20px;
+    font-size:24px;
+    font-weight:700;
+    color:#1e40af;
+    z-index:1;
+    position:relative;
+}
+
+/* ===== INPUT ===== */
 input{
     width:100%;
-    padding:12px;
+    padding:14px;
     font-size:18px;
     text-align:center;
-    border-radius:10px;
+    border-radius:12px;
     border:1px solid #cbd5f5;
     outline:none;
+    transition:0.3s;
+    z-index:1;
+    position:relative;
 }
+input:focus{
+    border-color:#2563eb;
+    box-shadow:0 0 8px rgba(37,99,235,0.4);
+}
+
+/* ===== BUTTON ===== */
 button{
     width:100%;
-    margin-top:14px;
-    padding:12px;
-    background:#2563eb;
+    margin-top:18px;
+    padding:14px;
+    background:linear-gradient(135deg,#2563eb,#1e40af);
     color:white;
     border:none;
-    border-radius:10px;
-    font-size:16px;
-    font-weight:600;
+    border-radius:12px;
+    font-size:18px;
+    font-weight:700;
     cursor:pointer;
+    transition:0.3s;
+    z-index:1;
+    position:relative;
 }
+button:hover{
+    transform:translateY(-2px);
+    box-shadow:0 8px 18px rgba(37,99,235,0.4);
+}
+
+/* ===== ERROR MESSAGE ===== */
 .error{
-    color:red;
-    margin-top:10px;
+    color:#ef4444;
+    margin-top:12px;
+    font-weight:600;
     display:none;
+    z-index:1;
+    position:relative;
 }
+
+/* ===== TELEGRAM LINK ===== */
 .telegram{
-    margin-top:14px;
+    margin-top:18px;
+    z-index:1;
+    position:relative;
 }
 .telegram a{
     color:#2563eb;
     text-decoration:none;
     font-weight:600;
+    transition:0.3s;
+}
+.telegram a:hover{
+    text-decoration:underline;
+}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:400px){
+    .lock-box{
+        width:90%;
+        padding:28px 20px;
+    }
+    input, button{
+        font-size:16px;
+        padding:12px;
+    }
 }
 </style>
 </head>
@@ -81,7 +152,6 @@ const PIN = "3222";
 function unlock(){
     const input = document.getElementById("pin").value;
     if(input === PIN){
-        // SESSION ONLY (reload করলে আবার চাইবে)
         sessionStorage.setItem("unlocked","yes");
         window.location.href = "index.html";
     }else{
