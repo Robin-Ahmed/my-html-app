@@ -13,7 +13,6 @@
     --secondary:#1e40af;
     --bg:#f1f5f9;
     --card:#ffffff;
-    --danger:#ef4444;
     --text:#0f172a;
 }
 
@@ -136,13 +135,26 @@ header a, header button{
     text-decoration:none;
 }
 
-/* ================= NO INTERNET ================= */
-#no-internet{
-    display:none;
-    text-align:center;
-    padding:60px 20px;
-    color:var(--danger);
-    font-size:18px;
+/* ================= GALLERY (PAGE STYLE) ================= */
+#galleryPage{
+    padding:16px;
+    max-width:1200px;
+    margin:auto;
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(110px,1fr));
+    gap:12px;
+}
+
+#galleryPage img{
+    width:100%;
+    height:90px;
+    object-fit:cover;
+    border-radius:10px;
+    cursor:pointer;
+    transition:.2s;
+}
+#galleryPage img:hover{
+    transform:scale(1.05);
 }
 
 /* ================= SCROLL BUTTONS ================= */
@@ -187,7 +199,7 @@ window.onload=()=>{
     if(!localStorage.getItem("introPlayed")){
         playIntro();
     }else{
-        checkInternet();
+        loadVideos();
     }
 };
 
@@ -204,19 +216,7 @@ function playIntro(){
 function closeIntro(){
     localStorage.setItem("introPlayed","yes");
     document.getElementById("introScreen").style.display="none";
-    checkInternet();
-}
-
-/* ===== INTERNET CHECK ===== */
-function checkInternet(){
-    if(navigator.onLine){
-        document.getElementById("no-internet").style.display="none";
-        document.getElementById("videoList").style.display="grid";
-        loadVideos();
-    }else{
-        document.getElementById("videoList").style.display="none";
-        document.getElementById("no-internet").style.display="block";
-    }
+    loadVideos();
 }
 
 /* ===== LOAD GOOGLE DRIVE VIDEOS ===== */
@@ -228,7 +228,9 @@ function loadVideos(){
     .then(r=>r.json())
     .then(data=>{
         const list=document.getElementById("videoList");
+        const gallery=document.getElementById("galleryPage");
         list.innerHTML="";
+        gallery.innerHTML="";
         data.files.forEach(f=>{
             if(f.mimeType.includes("video")){
                 list.innerHTML+=`
@@ -237,9 +239,16 @@ function loadVideos(){
                     <iframe src="https://drive.google.com/file/d/${f.id}/preview" allowfullscreen></iframe>
                     <a class="download-btn" href="https://drive.google.com/uc?export=download&id=${f.id}">Download</a>
                 </div>`;
+                gallery.innerHTML+=`
+                <img src="https://drive.google.com/thumbnail?id=${f.id}&sz=w300" onclick="openVideo('${f.id}')" title="${f.name}">
+                `;
             }
         });
     });
+}
+
+function openVideo(id){
+    window.location.href=`https://drive.google.com/file/d/${id}/preview`;
 }
 
 /* ===== SCROLL FUNCTIONS ===== */
@@ -263,6 +272,7 @@ function scrollDown(){
 <h1>Media Gallery</h1>
 <div class="actions">
 <a href="https://t.me/toXic_u0u" target="_blank">Telegram</a>
+<button onclick="document.getElementById('galleryPage').scrollIntoView({behavior:'smooth'});">Gallery</button>
 </div>
 </header>
 
@@ -270,9 +280,10 @@ function scrollDown(){
 Official Video Library • Powered by ToXic
 </div>
 
-<div id="no-internet">No Internet Connection ❌</div>
-
 <div id="videoList" class="video-container"></div>
+
+<!-- GALLERY PAGE -->
+<div id="galleryPage"></div>
 
 <!-- SCROLL BUTTONS -->
 <div class="scroll-controls">
