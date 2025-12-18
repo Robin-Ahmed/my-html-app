@@ -1,272 +1,251 @@
-<!DOCTYPE html>  <html lang="en">  
-<head>  
-<meta charset="UTF-8">  
-<meta name="viewport" content="width=device-width, initial-scale=1.0">  
-<title>Official Media Gallery</title>  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">  <!-- 🔐 SECURITY CHECK -->  <script>  
-if(sessionStorage.getItem("unlocked") !== "yes"){  
-    window.location.replace("security.html");  
-}  
-</script>  <style>  
-:root{  
-    --primary:#2563eb;  
-    --secondary:#1e40af;  
-    --bg:#f1f5f9;  
-    --card:#ffffff;  
-    --text:#0f172a;  
-}  
-  
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Inter',sans-serif;}  
-  
-html,body{  
-    height:100%;  
-    overflow:hidden;  
-    background:var(--bg);  
-    color:var(--text);  
-}  
-  
-/* ===== INTRO OVERLAY ===== */  
-#introOverlay{  
-    position:fixed;  
-    inset:0;  
-    background:black;  
-    z-index:99999;  
-    display:none;  
-    justify-content:center;  
-    align-items:center;  
-}  
-#introOverlay video{  
-    width:90%;  
-    max-width:600px;  
-    border-radius:12px;  
-}  
-#skipIntroBtn{  
-    position:absolute;  
-    top:20px;  
-    right:20px;  
-    padding:10px 16px;  
-    background:white;  
-    border:none;  
-    border-radius:10px;  
-    font-weight:700;  
-    cursor:pointer;  
-}  
-  
-/* ===== HEADER ===== */  
-header{  
-    background:linear-gradient(135deg,var(--primary),var(--secondary));  
-    padding:14px 18px;  
-    display:flex;  
-    justify-content:space-between;  
-    align-items:center;  
-    position:sticky;  
-    top:0;  
-    z-index:1000;  
-}  
-header h1{color:white;font-size:18px;}  
-header .actions{display:flex;gap:10px;}  
-header a{  
-    background:white;  
-    color:var(--primary);  
-    padding:8px 14px;  
-    border-radius:10px;  
-    font-weight:600;  
-    text-decoration:none;  
-}  
-  
-/* ===== INFO BAR ===== */  
-.info-bar{  
-    background:white;  
-    padding:10px;  
-    text-align:center;  
-    font-size:14px;  
-    box-shadow:0 2px 8px rgba(0,0,0,.08);  
-}  
-  
-/* ===== SCROLL AREA ===== */  
-#scrollContainer{  
-    height:calc(100vh - 74px);  
-    overflow:auto;  
-    -webkit-overflow-scrolling:touch;  
-}  
-  
-/* ===== VIDEO GRID ===== */  
-.video-container{  
-    display:grid;  
-    grid-template-columns:repeat(2,1fr);  
-    gap:14px;  
-    padding:16px;  
-    max-width:1200px;  
-    margin:auto;  
-}  
-.video-card{  
-    background:white;  
-    border-radius:14px;  
-    overflow:hidden;  
-    box-shadow:0 8px 20px rgba(0,0,0,.08);  
-}  
-.video-title{  
-    padding:10px 12px;  
-    font-weight:600;  
-    background:#f8fafc;  
-}  
-.video-card iframe{  
-    width:100%;  
-    height:200px;  
-    border:none;  
-}  
-.download-btn{  
-    display:block;  
-    margin:10px;  
-    padding:9px;  
-    background:var(--primary);  
-    color:white;  
-    border-radius:8px;  
-    text-align:center;  
-    font-weight:600;  
-    text-decoration:none;  
-}  
-  
-/* ===== SCROLL BUTTONS ===== */  
-.scroll-controls{  
-    position:fixed;  
-    right:12px;  
-    bottom:80px;  
-    display:flex;  
-    flex-direction:column;  
-    gap:10px;  
-    z-index:999;  
-}  
-.scroll-controls button{  
-    width:46px;  
-    height:46px;  
-    border:none;  
-    border-radius:50%;  
-    background:var(--primary);  
-    color:white;  
-    font-size:20px;  
-    cursor:pointer;  
-}  
-  
-/* ===== RESPONSIVE ===== */  
-@media(min-width:900px){  
-    .video-container{grid-template-columns:repeat(3,1fr);}  
-}  
-@media(max-width:480px){  
-    .video-container{grid-template-columns:1fr;}  
-}  
-</style>  </head>  <body>  <!-- ===== INTRO VIDEO OVERLAY ===== -->  <div id="introOverlay">  
-    <video id="introVideo" playsinline></video>  
-    <button id="skipIntroBtn" onclick="closeIntro()">Skip</button>  
-</div>  <header>  
-   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,600&display=swap" rel="stylesheet">  <h2 class="italian-title">BABY VIDEO</h2>  <style>  
-.italian-title {  
-  font-family: 'Playfair Display', serif;  
-  font-style: italic;  
-  font-size: 10px;  
-  color: #FFFF00; /* soft pink */  
-  letter-spacing: 1px;  
-}  
-</style>  <div class="actions">  
-    <a href="https://t.me/toXic_u0u" target="_blank">Telegram</a>  
-    <a href="gallery.html">All Video</a>  
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Official Media Gallery</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<!-- 🔐 SECURITY CHECK -->
+<script>
+if(sessionStorage.getItem("unlocked") !== "yes"){
+    window.location.replace("security.html");
+}
+</script>
+
+<style>
+:root{
+    --primary:#2563eb;
+    --secondary:#1e40af;
+    --bg:#f1f5f9;
+    --card:#ffffff;
+    --text:#0f172a;
+}
+
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Inter',sans-serif;}
+
+html,body{
+    height:100%;
+    overflow:hidden;
+    background:var(--bg);
+    color:var(--text);
+}
+
+/* ===== INTRO OVERLAY ===== */
+#introOverlay{
+    position:fixed;
+    inset:0;
+    background:black;
+    z-index:99999;
+    display:none;
+    justify-content:center;
+    align-items:center;
+}
+#introOverlay video{
+    width:90%;
+    max-width:600px;
+    border-radius:12px;
+}
+#skipIntroBtn{
+    position:absolute;
+    top:20px;
+    right:20px;
+    padding:10px 16px;
+    background:white;
+    border:none;
+    border-radius:10px;
+    font-weight:700;
+    cursor:pointer;
+}
+
+/* ===== HEADER ===== */
+header{
+    background:linear-gradient(135deg,var(--primary),var(--secondary));
+    padding:14px 18px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    position:sticky;
+    top:0;
+    z-index:1000;
+}
+header h1{
+    color:white;
+    font-size:18px;
+}
+header .actions{display:flex;gap:10px;}
+header a{
+    background:white;
+    color:var(--primary);
+    padding:8px 14px;
+    border-radius:10px;
+    font-weight:600;
+    text-decoration:none;
+}
+
+/* ===== INFO BAR ===== */
+.info-bar{
+    background:white;
+    padding:10px;
+    text-align:center;
+    font-size:14px;
+    box-shadow:0 2px 8px rgba(0,0,0,.08);
+}
+
+/* ===== SCROLL AREA ===== */
+#scrollContainer{
+    height:calc(100vh - 74px);
+    overflow:auto;
+    -webkit-overflow-scrolling:touch;
+}
+
+/* ===== VIDEO GRID ===== */
+.video-container{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:14px;
+    padding:16px;
+    max-width:1200px;
+    margin:auto;
+}
+.video-card{
+    background:white;
+    border-radius:14px;
+    overflow:hidden;
+    box-shadow:0 8px 20px rgba(0,0,0,.08);
+}
+.video-title{
+    padding:10px 12px;
+    font-weight:600;
+    background:#f8fafc;
+}
+.video-card iframe{
+    width:100%;
+    height:200px;
+    border:none;
+}
+.download-btn{
+    display:block;
+    margin:10px;
+    padding:9px;
+    background:var(--primary);
+    color:white;
+    border-radius:8px;
+    text-align:center;
+    font-weight:600;
+    text-decoration:none;
+}
+
+/* ===== SCROLL BUTTONS ===== */
+.scroll-controls{
+    position:fixed;
+    right:12px;
+    bottom:80px;
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+    z-index:999;
+}
+.scroll-controls button{
+    width:46px;
+    height:46px;
+    border:none;
+    border-radius:50%;
+    background:var(--primary);
+    color:white;
+    font-size:20px;
+    cursor:pointer;
+}
+
+/* ===== RESPONSIVE ===== */
+@media(min-width:900px){
+    .video-container{grid-template-columns:repeat(3,1fr);}
+}
+@media(max-width:480px){
+    .video-container{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<!-- ===== INTRO VIDEO OVERLAY ===== -->
+<div id="introOverlay">
+    <video id="introVideo" playsinline></video>
+    <button id="skipIntroBtn" onclick="closeIntro()">Skip</button>
 </div>
 
-</header>  
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,600&display=swap" rel="stylesheet">  <div class="marquee-wrap">  
-  <div class="info-bar">  
-    ADULT VIDEO LIBRARY • POWERED BY TOXIC  
-  </div>  
-</div>  <style>  
-.marquee-wrap {  
-  width: 100%;  
-  overflow: hidden;  
-  white-space: nowrap;  
-}  
-  
-.info-bar {  
-  display: inline-block;  
-  padding-left: 100%;  
-  font-family: 'Playfair Display', serif;  
-  font-style: italic;  
-  font-size: 14px;  
-  color: #008080;  
-  text-transform: uppercase;  
-  letter-spacing: 1.2px;  
-  animation: rtlScroll 10s linear infinite;  
-}  
-  
-@keyframes rtlScroll {  
-  0% {  
-    transform: translateX(0);  
-  }  
-  100% {  
-    transform: translateX(-100%);  
-  }  
-}  
-</style>  </style>  
-<style>  
-.info-bar {  
-  font-family: 'Playfair Display', serif;  
-  font-style: italic;  
-  font-size: 14px;  
-</style>  
-<div id="scrollContainer">  
-    <div id="videoList" class="video-container"></div>  
-</div>  <div class="scroll-controls">  
-    <button onclick="scrollUp()">⬆</button>  
-    <button onclick="scrollDown()">⬇</button>  
-</div>  <script>  
-window.onload = () => {  
-    loadVideos();  
-    showIntroOnce();  
-};  
-  
-/* ===== INTRO LOGIC ===== */  
-function showIntroOnce(){  
-    if(localStorage.getItem("introShown")) return; // already shown  
-    const overlay = document.getElementById("introOverlay");  
-    const video = document.getElementById("introVideo");  
-    overlay.style.display = "flex";  
-    video.src = "https://raw.githubusercontent.com/Robin-Ahmed/my-html-app/main/AdVideo.mp4";  
-    video.play();  
-    localStorage.setItem("introShown","true");  
-    video.onended = closeIntro;  
-}  
-function closeIntro(){  
-    document.getElementById("introOverlay").style.display = "none";  
-}  
-  
-/* ===== SCROLL BUTTONS ===== */  
-function scrollUp(){  
-    document.getElementById("scrollContainer")  
-        .scrollTo({top:0,behavior:'smooth'});  
-}  
-function scrollDown(){  
-    const c = document.getElementById("scrollContainer");  
-    c.scrollTo({top:c.scrollHeight,behavior:'smooth'});  
-}  
-  
-/* ===== LOAD GOOGLE DRIVE VIDEOS ===== */  
-function loadVideos(){  
-    const apiKey="AIzaSyD7fZ8nt8LFa9iY8GfDBfhakIR2aqSE-Ms";  
-    const folderId="1C78cLvYYP2AHaalMutvlJaNx0UjtgcIq";  
-  
-    fetch(`https://www.googleapis.com/drive/v3/files?q='${folderId}'+in+parents&key=${apiKey}&fields=files(id,name,mimeType)`)  
-    .then(r=>r.json())  
-    .then(d=>{  
-        const list=document.getElementById("videoList");  
-        list.innerHTML="";  
-        d.files.forEach(f=>{  
-            if(f.mimeType.includes("video")){  
-                list.innerHTML+=`  
-                <div class="video-card">  
-                    <div class="video-title">${f.name}</div>  
-                    <iframe src="https://drive.google.com/file/d/${f.id}/preview"></iframe>  
-                    <a class="download-btn" href="https://drive.google.com/uc?export=download&id=${f.id}">Download</a>  
-                </div>`;  
-            }  
-        });  
-    });  
-}  
-</script>  </body>  
+<header>
+    <h2 style="font-family: 'Playfair Display', serif; font-style: italic; font-size: 16px; color: #ff69b4;">BABY VIDEO</h2>
+    <div class="actions">
+        <a href="https://t.me/toXic_u0u" target="_blank">Telegram</a>
+        <a href="gallery.html">All Video</a>
+        <a href="activeStatus.html" target="_blank">Active Status</a>
+    </div>
+</header>
+
+<div class="info-bar">ADULT VIDEO LIBRARY • POWERED BY TOXIC</div>
+
+<div id="scrollContainer">
+    <div id="videoList" class="video-container"></div>
+</div>
+
+<div class="scroll-controls">
+    <button onclick="scrollUp()">⬆</button>
+    <button onclick="scrollDown()">⬇</button>
+</div>
+
+<script>
+window.onload = () => {
+    loadVideos();
+    showIntroOnce();
+};
+
+/* ===== INTRO LOGIC ===== */
+function showIntroOnce(){
+    if(localStorage.getItem("introShown")) return;
+    const overlay = document.getElementById("introOverlay");
+    const video = document.getElementById("introVideo");
+    overlay.style.display = "flex";
+    video.src = "https://raw.githubusercontent.com/Robin-Ahmed/my-html-app/main/AdVideo.mp4";
+    video.play();
+    localStorage.setItem("introShown","true");
+    video.onended = closeIntro;
+}
+function closeIntro(){
+    document.getElementById("introOverlay").style.display = "none";
+}
+
+/* ===== SCROLL BUTTONS ===== */
+function scrollUp(){
+    document.getElementById("scrollContainer").scrollTo({top:0,behavior:'smooth'});
+}
+function scrollDown(){
+    const c = document.getElementById("scrollContainer");
+    c.scrollTo({top:c.scrollHeight,behavior:'smooth'});
+}
+
+/* ===== LOAD GOOGLE DRIVE VIDEOS ===== */
+function loadVideos(){
+    const apiKey="AIzaSyD7fZ8nt8LFa9iY8GfDBfhakIR2aqSE-Ms";
+    const folderId="1C78cLvYYP2AHaalMutvlJaNx0UjtgcIq";
+
+    fetch(`https://www.googleapis.com/drive/v3/files?q='${folderId}'+in+parents&key=${apiKey}&fields=files(id,name,mimeType)`)
+    .then(r=>r.json())
+    .then(d=>{
+        const list=document.getElementById("videoList");
+        list.innerHTML="";
+        d.files.forEach(f=>{
+            if(f.mimeType.includes("video")){
+                list.innerHTML+=`
+                <div class="video-card">
+                    <div class="video-title">${f.name}</div>
+                    <iframe src="https://drive.google.com/file/d/${f.id}/preview"></iframe>
+                    <a class="download-btn" href="https://drive.google.com/uc?export=download&id=${f.id}">Download</a>
+                </div>`;
+            }
+        });
+    });
+}
+</script>
+</body>
 </html>
