@@ -6,6 +6,7 @@
 <title>Official Media Gallery</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,600&display=swap" rel="stylesheet">
 
 <!-- 🔐 SECURITY CHECK -->
 <script>
@@ -22,42 +23,13 @@ if(sessionStorage.getItem("unlocked") !== "yes"){
     --card:#ffffff;
     --text:#0f172a;
 }
-
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Inter',sans-serif;}
-
-html,body{
-    height:100%;
-    overflow:hidden;
-    background:var(--bg);
-    color:var(--text);
-}
+html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--text);}
 
 /* ===== INTRO OVERLAY ===== */
-#introOverlay{
-    position:fixed;
-    inset:0;
-    background:black;
-    z-index:99999;
-    display:none;
-    justify-content:center;
-    align-items:center;
-}
-#introOverlay video{
-    width:90%;
-    max-width:600px;
-    border-radius:12px;
-}
-#skipIntroBtn{
-    position:absolute;
-    top:20px;
-    right:20px;
-    padding:10px 16px;
-    background:white;
-    border:none;
-    border-radius:10px;
-    font-weight:700;
-    cursor:pointer;
-}
+#introOverlay{position:fixed;inset:0;background:black;z-index:99999;display:none;justify-content:center;align-items:center;}
+#introOverlay video{width:90%;max-width:600px;border-radius:12px;}
+#skipIntroBtn{position:absolute;top:20px;right:20px;padding:10px 16px;background:white;border:none;border-radius:10px;font-weight:700;cursor:pointer;}
 
 /* ===== HEADER ===== */
 header{
@@ -69,99 +41,44 @@ header{
     position:sticky;
     top:0;
     z-index:1000;
+    flex-wrap:wrap;
 }
-header h1{color:white;font-size:18px;}
+header h2{color:white;font-size:18px;}
 header .actions{display:flex;gap:10px;}
-header a{
-    background:white;
-    color:var(--primary);
-    padding:8px 14px;
-    border-radius:10px;
-    font-weight:600;
-    text-decoration:none;
-}
+header a{background:white;color:var(--primary);padding:8px 14px;border-radius:10px;font-weight:600;text-decoration:none;}
+
+/* ===== ITALIAN TITLE ===== */
+.italian-title {font-family: 'Playfair Display', serif;font-style: italic;font-size: 16px;color: #FF69B4;letter-spacing: 1px;}
+
+/* ===== ACTIVE STATUS ===== */
+.active-status {color: white;font-size: 14px;font-weight: 600;display: flex;align-items: center;gap: 6px;}
+.green-dot {width: 10px;height: 10px;background: #00FF00;border-radius: 50%;display: inline-block;}
 
 /* ===== INFO BAR ===== */
-.info-bar{
-    background:white;
-    padding:10px;
-    text-align:center;
-    font-size:14px;
-    box-shadow:0 2px 8px rgba(0,0,0,.08);
-}
+.info-bar{background:white;padding:10px;text-align:center;font-size:14px;box-shadow:0 2px 8px rgba(0,0,0,.08);}
 
 /* ===== SCROLL AREA ===== */
-#scrollContainer{
-    height:calc(100vh - 74px);
-    overflow:auto;
-    -webkit-overflow-scrolling:touch;
-}
+#scrollContainer{height:calc(100vh - 100px);overflow:auto;-webkit-overflow-scrolling:touch;}
 
 /* ===== VIDEO GRID ===== */
-.video-container{
-    display:grid;
-    grid-template-columns:repeat(2,1fr);
-    gap:14px;
-    padding:16px;
-    max-width:1200px;
-    margin:auto;
-}
-.video-card{
-    background:white;
-    border-radius:14px;
-    overflow:hidden;
-    box-shadow:0 8px 20px rgba(0,0,0,.08);
-}
-.video-title{
-    padding:10px 12px;
-    font-weight:600;
-    background:#f8fafc;
-}
-.video-card iframe{
-    width:100%;
-    height:200px;
-    border:none;
-}
-.download-btn{
-    display:block;
-    margin:10px;
-    padding:9px;
-    background:var(--primary);
-    color:white;
-    border-radius:8px;
-    text-align:center;
-    font-weight:600;
-    text-decoration:none;
-}
+.video-container{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;padding:16px;max-width:1200px;margin:auto;}
+.video-card{background:white;border-radius:14px;overflow:hidden;box-shadow:0 8px 20px rgba(0,0,0,.08);}
+.video-title{padding:10px 12px;font-weight:600;background:#f8fafc;}
+.video-card iframe{width:100%;height:200px;border:none;}
+.download-btn{display:block;margin:10px;padding:9px;background:var(--primary);color:white;border-radius:8px;text-align:center;font-weight:600;text-decoration:none;}
 
 /* ===== SCROLL BUTTONS ===== */
-.scroll-controls{
-    position:fixed;
-    right:12px;
-    bottom:80px;
-    display:flex;
-    flex-direction:column;
-    gap:10px;
-    z-index:999;
-}
-.scroll-controls button{
-    width:46px;
-    height:46px;
-    border:none;
-    border-radius:50%;
-    background:var(--primary);
-    color:white;
-    font-size:20px;
-    cursor:pointer;
-}
+.scroll-controls{position:fixed;right:12px;bottom:80px;display:flex;flex-direction:column;gap:10px;z-index:999;}
+.scroll-controls button{width:46px;height:46px;border:none;border-radius:50%;background:var(--primary);color:white;font-size:20px;cursor:pointer;}
+
+/* ===== MARQUEE ===== */
+.marquee-wrap {width: 100%;overflow: hidden;white-space: nowrap;}
+.info-bar {display: inline-block;padding-left: 100%;font-family: 'Playfair Display', serif;font-style: italic;font-size: 14px;color: #008080;text-transform: uppercase;letter-spacing: 1.2px;animation: rtlScroll 10s linear infinite;}
+@keyframes rtlScroll {0% { transform: translateX(0); } 100% { transform: translateX(-100%); }}
 
 /* ===== RESPONSIVE ===== */
-@media(min-width:900px){
-    .video-container{grid-template-columns:repeat(3,1fr);}
-}
-@media(max-width:480px){
-    .video-container{grid-template-columns:1fr;}
-}
+@media(min-width:900px){.video-container{grid-template-columns:repeat(3,1fr);}}
+@media(max-width:480px){.video-container{grid-template-columns:1fr;}}
 </style>
 </head>
 
@@ -174,25 +91,18 @@ header a{
 </div>
 
 <header>
-   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,600&display=swap" rel="stylesheet">
+    <h2 class="italian-title">BABY VIDEO</h2>
 
-<h2 class="italian-title">BABY VIDEO</h2>
+    <div class="active-status">
+        <span class="green-dot"></span>
+        Online: <span id="onlineCount">0</span> | Devices: <span id="deviceCount">0</span>
+    </div>
 
-<style>
-.italian-title {
-  font-family: 'Playfair Display', serif;
-  font-style: italic;
-  font-size: 10px;
-  color: #FFFF00; /* soft pink */
-  letter-spacing: 1px;
-}
-</style>
     <div class="actions">
         <a href="https://t.me/toXic_u0u" target="_blank">Telegram</a>
         <a href="gallery.html">All Video</a>
     </div>
 </header>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,600&display=swap" rel="stylesheet">
 
 <div class="marquee-wrap">
   <div class="info-bar">
@@ -200,41 +110,6 @@ header a{
   </div>
 </div>
 
-<style>
-.marquee-wrap {
-  width: 100%;
-  overflow: hidden;
-  white-space: nowrap;
-}
-
-.info-bar {
-  display: inline-block;
-  padding-left: 100%;
-  font-family: 'Playfair Display', serif;
-  font-style: italic;
-  font-size: 14px;
-  color: #008080;
-  text-transform: uppercase;
-  letter-spacing: 1.2px;
-  animation: rtlScroll 10s linear infinite;
-}
-
-@keyframes rtlScroll {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(-100%);
-  }
-}
-</style>
-</style>
-<style>
-.info-bar {
-  font-family: 'Playfair Display', serif;
-  font-style: italic;
-  font-size: 14px;
-</style>
 <div id="scrollContainer">
     <div id="videoList" class="video-container"></div>
 </div>
@@ -244,15 +119,19 @@ header a{
     <button onclick="scrollDown()">⬇</button>
 </div>
 
+<!-- ===== FIREBASE ===== -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+
 <script>
 window.onload = () => {
     loadVideos();
     showIntroOnce();
 };
 
-/* ===== INTRO LOGIC ===== */
+// ===== INTRO LOGIC =====
 function showIntroOnce(){
-    if(localStorage.getItem("introShown")) return; // already shown
+    if(localStorage.getItem("introShown")) return;
     const overlay = document.getElementById("introOverlay");
     const video = document.getElementById("introVideo");
     overlay.style.display = "flex";
@@ -265,17 +144,16 @@ function closeIntro(){
     document.getElementById("introOverlay").style.display = "none";
 }
 
-/* ===== SCROLL BUTTONS ===== */
+// ===== SCROLL BUTTONS =====
 function scrollUp(){
-    document.getElementById("scrollContainer")
-        .scrollTo({top:0,behavior:'smooth'});
+    document.getElementById("scrollContainer").scrollTo({top:0,behavior:'smooth'});
 }
 function scrollDown(){
     const c = document.getElementById("scrollContainer");
     c.scrollTo({top:c.scrollHeight,behavior:'smooth'});
 }
 
-/* ===== LOAD GOOGLE DRIVE VIDEOS ===== */
+// ===== LOAD GOOGLE DRIVE VIDEOS =====
 function loadVideos(){
     const apiKey="AIzaSyD7fZ8nt8LFa9iY8GfDBfhakIR2aqSE-Ms";
     const folderId="1C78cLvYYP2AHaalMutvlJaNx0UjtgcIq";
@@ -297,7 +175,49 @@ function loadVideos(){
         });
     });
 }
-</script>
 
+// ===== FIREBASE CONFIG =====
+const firebaseConfig = {
+  apiKey: "AIzaSyD0kUFTnDHU-Vsm6zjglLqYtRoOm5RiKMw",
+  authDomain: "blue-film-8cea6.firebaseapp.com",
+  databaseURL: "https://blue-film-8cea6-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "blue-film-8cea6",
+  storageBucket: "blue-film-8cea6.firebasestorage.app",
+  messagingSenderId: "214532936466",
+  appId: "1:214532936466:web:135b1617ae82f3ef1a59cb",
+  measurementId: "G-FWB5Q31WC"
+};
+firebase.initializeApp(firebaseConfig);
+const db = firebase.database();
+
+// ===== ACTIVE USERS LOGIC =====
+const userId = 'user_' + Math.floor(Math.random()*1000000);
+const userRef = db.ref('activeUsers/' + userId);
+
+function heartbeat(){
+  userRef.set({lastActive: Date.now(), devices:1});
+  userRef.onDisconnect().remove();
+}
+heartbeat();
+setInterval(heartbeat,5000);
+
+function updateActiveStatus(){
+  db.ref('activeUsers').once('value', snapshot => {
+    const data = snapshot.val() || {};
+    const now = Date.now();
+    let online = 0, devices = 0;
+    Object.values(data).forEach(u => {
+      if(now - u.lastActive < 5*60*1000){
+        online++;
+        devices += u.devices || 1;
+      }
+    });
+    document.getElementById('onlineCount').innerText = online;
+    document.getElementById('deviceCount').innerText = devices;
+  });
+}
+updateActiveStatus();
+setInterval(updateActiveStatus,5000);
+</script>
 </body>
 </html>
