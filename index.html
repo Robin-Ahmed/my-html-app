@@ -5,153 +5,259 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Official Media Gallery</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-<!-- ✅ A D S T E R R A   P O P U N D E R -->
+<script>
+if(sessionStorage.getItem("unlocked") !== "yes"){
+    window.location.replace("security.html");
+}
+</script>
+
+<!-- Adsterra Popunder -->
 <script
   type="text/javascript"
   src="https://pl28293603.effectivegatecpm.com/ff/7e/77/ff7e7731799bebbd2a1333d009c6ead6.js">
 </script>
 
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:Inter,sans-serif}
-body{background:#f1f5f9;height:100vh;overflow:hidden}
-
-/* HEADER */
+:root{
+    --primary:#2563eb;
+    --secondary:#1e40af;
+    --bg:#f1f5f9;
+    --card:#ffffff;
+    --text:#0f172a;
+}
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Inter',sans-serif;}
+html,body{
+    height:100%;
+    overflow:hidden;
+    background:var(--bg);
+    color:var(--text);
+}
+#introOverlay{
+    position:fixed;
+    inset:0;
+    background:black;
+    z-index:99999;
+    display:none;
+    justify-content:center;
+    align-items:center;
+}
+#introOverlay video{
+    width:90%;
+    max-width:600px;
+    border-radius:12px;
+}
+#skipIntroBtn{
+    position:absolute;
+    top:20px;
+    right:20px;
+    padding:10px 16px;
+    background:white;
+    border:none;
+    border-radius:10px;
+    font-weight:700;
+    cursor:pointer;
+}
 header{
-    background:linear-gradient(135deg,#2563eb,#1e40af);
+    background:linear-gradient(135deg,var(--primary),var(--secondary));
     padding:14px 18px;
     display:flex;
     justify-content:space-between;
     align-items:center;
-    color:#fff
+    position:sticky;
+    top:0;
+    z-index:1000;
 }
-header h2{font-size:18px;font-style:italic}
-.actions{display:flex;gap:10px;align-items:center}
-.actions a{
-    background:#fff;
-    color:#2563eb;
-    padding:6px 12px;
-    border-radius:8px;
+header h2{
+    color:white;
+    font-size:18px;
+    font-style:italic;
+}
+header .actions{
+    display:flex;
+    gap:10px;
+    align-items:center;
+}
+header a{
+    background:white;
+    color:var(--primary);
+    padding:8px 14px;
+    border-radius:10px;
+    font-weight:600;
     text-decoration:none;
-    font-weight:600
 }
-
-/* ACTIVE STATUS */
-#activeBox{
-    background:#fff;
-    color:#2563eb;
+#headerActiveStatus{
+    background:rgba(255,255,255,0.9);
     padding:4px 10px;
-    border-radius:6px;
-    font-size:11px;
-    font-weight:700;
+    border-radius:8px;
+    font-size:10px;
     display:flex;
     align-items:center;
-    gap:6px
+    gap:6px;
 }
-.dot{
-    width:8px;height:8px;border-radius:50%;
+.active-dot{
+    width:10px;
+    height:10px;
     background:#16a34a;
-    animation:blink 1s infinite
+    border-radius:50%;
+    animation:blink 1s infinite;
 }
-@keyframes blink{50%{opacity:0}}
-
-/* CONTENT */
-#scroll{
-    height:calc(100vh - 70px);
-    overflow:auto;
-    padding:14px
+@keyframes blink{
+    0%,50%,100%{opacity:1;}
+    25%,75%{opacity:0;}
 }
-.grid{
-    display:grid;
-    grid-template-columns:repeat(2,1fr);
-    gap:14px
-}
-.card{
-    background:#fff;
-    border-radius:12px;
-    box-shadow:0 6px 14px rgba(0,0,0,.1);
-    overflow:hidden
-}
-.card h4{padding:10px;background:#f8fafc}
-.card iframe{width:100%;height:200px;border:none}
-.download{
-    display:block;
-    margin:10px;
-    background:#2563eb;
-    color:#fff;
+.info-bar{
+    background:white;
     padding:10px;
     text-align:center;
-    border-radius:8px;
-    font-weight:700;
-    text-decoration:none
+    font-size:14px;
 }
-
-@media(max-width:600px){
-    .grid{grid-template-columns:1fr}
+#scrollContainer{
+    height:calc(100vh - 120px);
+    overflow:auto;
+}
+.video-container{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:14px;
+    padding:16px;
+}
+.video-card{
+    background:white;
+    border-radius:14px;
+    overflow:hidden;
+    box-shadow:0 8px 20px rgba(0,0,0,.08);
+}
+.video-title{
+    padding:10px;
+    font-weight:600;
+}
+.video-card iframe{
+    width:100%;
+    height:200px;
+}
+.download-btn{
+    display:block;
+    margin:10px;
+    padding:9px;
+    background:var(--primary);
+    color:white;
+    border-radius:8px;
+    text-align:center;
+    font-weight:600;
+    text-decoration:none;
+}
+.scroll-controls{
+    position:fixed;
+    right:12px;
+    bottom:80px;
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+}
+.scroll-controls button{
+    width:46px;
+    height:46px;
+    border:none;
+    border-radius:50%;
+    background:var(--primary);
+    color:white;
+    font-size:20px;
 }
 </style>
 </head>
 
 <body>
 
+<div id="introOverlay">
+    <video id="introVideo" playsinline></video>
+    <button id="skipIntroBtn" onclick="closeIntro()">Skip</button>
+</div>
+
 <header>
     <h2>FUNNY VIDEO'S</h2>
     <div class="actions">
-        <div id="activeBox">
-            <div class="dot"></div>
-            <span id="activeText">-- Active</span>
+        <div id="headerActiveStatus">
+            <span class="active-dot"></span>
+            <span id="activeNumber">-- Active</span>
         </div>
         <a href="https://t.me/toXic_u0u" target="_blank">Telegram</a>
     </div>
 </header>
 
-<div id="scroll">
-    <div class="grid" id="videos"></div>
+<div class="info-bar">FUNNY VIDEO LIBRARY</div>
+
+<div id="scrollContainer">
+    <div id="videoList" class="video-container"></div>
 </div>
 
-<!-- ================= JS ================= -->
-<script>
-/* ACTIVE STATUS */
-const nums=[6,8,9,12,14,15];
-setInterval(()=>{
-    document.getElementById("activeText").innerText =
-        nums[Math.floor(Math.random()*nums.length)]+" Active";
-},2500);
+<div class="scroll-controls">
+    <button onclick="scrollUp()">⬆</button>
+    <button onclick="scrollDown()">⬇</button>
+</div>
 
-/* GOOGLE DRIVE VIDEOS */
+<script>
+window.onload = () => {
+    loadVideos();
+    showIntroOnce();
+    startActiveStatus();
+};
+
+function showIntroOnce(){
+    if(localStorage.getItem("introShown")) return;
+    const o=document.getElementById("introOverlay");
+    const v=document.getElementById("introVideo");
+    o.style.display="flex";
+    v.src="https://raw.githubusercontent.com/Robin-Ahmed/my-html-app/main/AdVideo.mp4";
+    v.play();
+    localStorage.setItem("introShown","true");
+    v.onended=closeIntro;
+}
+function closeIntro(){document.getElementById("introOverlay").style.display="none";}
+
+function scrollUp(){scrollContainer.scrollTo({top:0,behavior:'smooth'});}
+function scrollDown(){scrollContainer.scrollTo({top:scrollContainer.scrollHeight,behavior:'smooth'});}
+
+function loadVideos(){
 const apiKey="AIzaSyD7fZ8nt8LFa9iY8GfDBfhakIR2aqSE-Ms";
 const folderId="1C78cLvYYP2AHaalMutvlJaNx0UjtgcIq";
 
 fetch(`https://www.googleapis.com/drive/v3/files?q='${folderId}'+in+parents&key=${apiKey}&fields=files(id,name,mimeType)`)
 .then(r=>r.json())
 .then(d=>{
-    const box=document.getElementById("videos");
-    d.files.forEach(v=>{
-        if(v.mimeType.includes("video")){
-            box.innerHTML+=`
-            <div class="card">
-                <h4>${v.name}</h4>
-                <iframe src="https://drive.google.com/file/d/${v.id}/preview"></iframe>
-                <a class="download"
-                   href="https://drive.google.com/uc?export=download&id=${v.id}"
-                   onclick="return fireAd(this.href)">
-                   Download
-                </a>
-            </div>`;
-        }
-    });
+videoList.innerHTML="";
+d.files.forEach(f=>{
+if(f.mimeType.includes("video")){
+videoList.innerHTML+=`
+<div class="video-card">
+<div class="video-title">${f.name}</div>
+<iframe src="https://drive.google.com/file/d/${f.id}/preview"></iframe>
+<a class="download-btn"
+   href="https://drive.google.com/uc?export=download&id=${f.id}"
+   onclick="return handleDownload(this.href)">
+   Download
+</a>
+</div>`;
+}});
 });
+}
 
-/* POPUNDER FIRE LOGIC */
-let popDone=false;
-function fireAd(url){
-    if(!popDone){
-        popDone=true;
-        window.open(url,'_blank');
-        return false;
-    }
-    return true;
+const activeNumbers=[9,7,8,11,13,15,6];
+function startActiveStatus(){
+const el=document.getElementById("activeNumber");
+setInterval(()=>{el.textContent=activeNumbers[Math.floor(Math.random()*activeNumbers.length)]+" Active";},3000);
+}
+
+let adShown=false;
+function handleDownload(url){
+if(!adShown){
+adShown=true;
+window.open("about:blank","_blank");
+setTimeout(()=>{window.location.href=url;},1500);
+return false;
+}
+return true;
 }
 </script>
 
