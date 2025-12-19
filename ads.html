@@ -3,48 +3,58 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ads Integration</title>
-<script type="text/javascript">
-(function(){
-    var DOMAIN_ID = "373794"; //  Domain ID
-    var SCRIPT_URL = "https://prscripts.com/d/?resource=pubJS";
-    var SW_URL = "https://prscripts.com/d/n/sw?did=" + DOMAIN_ID;
-
-    // Main ads script
-    var script = document.createElement('script');
-    script.src = SCRIPT_URL + "&domainId=" + DOMAIN_ID;
-    script.async = true;
-    document.head.appendChild(script);
-
-    // Service Worker
-    if('serviceWorker' in navigator){
-        navigator.serviceWorker.register(SW_URL)
-        .then(function(reg){ console.log('Service worker registered'); })
-        .catch(function(err){ console.warn('Service worker failed:', err); });
-    }
-})();
-</script>
-
+<title>Ads</title>
 <style>
-#adContainer {
-    width: 300px;
-    height: 250px;
-    margin: 20px auto;
-    border: 1px solid #000;
-    text-align: center;
+#adContainer{
+    width:100%;
+    max-width:300px;
+    height:250px;
+    margin:10px auto;
+    border:1px solid #ccc;
+    background:#f0f0f0;
+    position:relative;
+    text-align:center;
     display:flex;
     justify-content:center;
     align-items:center;
-    background:#f0f0f0;
     font-weight:bold;
-    font-size:14px;
-    color:#333;
+}
+#closeAd{
+    position:absolute;
+    top:2px;
+    right:4px;
+    background:red;
+    color:white;
+    border:none;
+    border-radius:50%;
+    width:20px;
+    height:20px;
+    cursor:pointer;
+    font-weight:bold;
 }
 </style>
 </head>
 <body>
+
 <div id="adContainer">
+    <button id="closeAd">×</button>
     Loading Ad...
 </div>
+
+<script>
+document.getElementById('closeAd').onclick = function(){
+    document.getElementById('adContainer').style.display='none';
+}
+
+// Dynamic ad injection (PlugRush / PopAds)
+(function(){
+    var DOMAIN_ID = "373794"; // আপনার Domain ID
+    var script = document.createElement('script');
+    script.src = "https://prscripts.com/d/?resource=pubJS&domainId=" + DOMAIN_ID;
+    script.async = true;
+    document.body.appendChild(script);
+})();
+</script>
+
 </body>
 </html>
