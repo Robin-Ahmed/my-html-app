@@ -5,120 +5,65 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Official Media Gallery</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 
 <style>
-:root{
-    --primary:#2563eb;
-    --secondary:#1e40af;
-    --bg:#f1f5f9;
-    --text:#0f172a;
-}
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Inter',sans-serif;}
-html,body{height:100%;background:var(--bg);color:var(--text);}
+body{background:#f1f5f9;color:#0f172a;}
 
-/* ===== HEADER ===== */
 header{
-    background:linear-gradient(135deg,var(--primary),var(--secondary));
+    background:linear-gradient(135deg,#2563eb,#1e40af);
     padding:14px 18px;
     display:flex;
     justify-content:space-between;
     align-items:center;
     flex-wrap:wrap;
-    position:sticky;
-    top:0;
-    z-index:1000;
 }
-header h2{
-    color:white;
-    font-size:18px;
-    font-style:italic;
-}
-header .actions{
-    display:flex;
-    gap:10px;
-    align-items:center;
-    flex-wrap:wrap;
-}
+header h2{color:#fff;font-size:18px;font-style:italic;}
+header .actions{display:flex;gap:10px;flex-wrap:wrap;}
 header a{
-    background:white;
-    color:var(--primary);
+    background:#fff;
+    color:#2563eb;
     padding:8px 14px;
     border-radius:10px;
     font-weight:600;
     text-decoration:none;
-}
-
-/* ===== ACTIVE STATUS ===== */
-#headerActiveStatus{
-    background:rgba(255,255,255,0.9);
-    padding:4px 10px;
-    border-radius:8px;
-    font-weight:700;
-    font-size:10px;
-    display:flex;
-    align-items:center;
-    gap:6px;
-}
-.active-dot{
-    width:10px;
-    height:10px;
-    background:#16a34a;
-    border-radius:50%;
-    animation:blink 1s infinite;
-}
-@keyframes blink{
-    0%,50%,100%{opacity:1;}
-    25%,75%{opacity:0;}
+    font-size:14px;
 }
 
 .info-bar{
-    background:white;
+    background:#fff;
     padding:10px;
     text-align:center;
     font-size:14px;
-    box-shadow:0 2px 8px rgba(0,0,0,.08);
 }
 
-/* ===== VIDEO GRID ===== */
 #scrollContainer{
     height:calc(100vh - 120px);
     overflow:auto;
 }
+
 .video-container{
     display:grid;
     grid-template-columns:repeat(2,1fr);
     gap:14px;
     padding:16px;
-    max-width:1200px;
-    margin:auto;
 }
+
 .video-card{
-    background:white;
+    background:#fff;
     border-radius:14px;
     overflow:hidden;
     box-shadow:0 8px 20px rgba(0,0,0,.08);
 }
 .video-title{
-    padding:10px 12px;
+    padding:10px;
     font-weight:600;
-    background:#f8fafc;
 }
 .video-card iframe{
     width:100%;
     height:200px;
     border:none;
-}
-.download-btn{
-    display:block;
-    margin:10px;
-    padding:9px;
-    background:var(--primary);
-    color:white;
-    border-radius:8px;
-    text-align:center;
-    font-weight:600;
-    text-decoration:none;
 }
 
 @media(min-width:900px){
@@ -127,89 +72,33 @@ header a{
 @media(max-width:480px){
     .video-container{grid-template-columns:1fr;}
 }
-
-/* ===== FULLSCREEN AD OVERLAY ===== */
-#adOverlay{
-    position:fixed;
-    inset:0;
-    background:rgba(0,0,0,0.85);
-    z-index:999999;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-}
-#adContent{
-    width:100%;
-    height:100%;
-    position:relative;
-    background:#000;
-}
-#closeAd{
-    position:absolute;
-    top:15px;
-    right:15px;
-    width:40px;
-    height:40px;
-    border:none;
-    border-radius:50%;
-    background:red;
-    color:white;
-    font-size:22px;
-    font-weight:bold;
-    cursor:pointer;
-    z-index:9999999;
-}
 </style>
 </head>
-<body>
 
-<!-- ===== FULL SCREEN AD ===== -->
-<div id="adOverlay">
-  <div id="adContent">
-    <button id="closeAd">×</button>
-  </div>
-</div>
+<body>
 
 <header>
     <h2>FUNNY VIDEO'S</h2>
     <div class="actions">
-        <div id="headerActiveStatus">
-            <span class="active-dot"></span>
-            <span id="activeNumber">-- Active</span>
-        </div>
         <a href="https://t.me/toXic_u0u" target="_blank">Telegram</a>
         <a href="gallery.html">Gallery</a>
     </div>
 </header>
 
-<div class="info-bar">FUNNY VIDEO LIBRARY • POWERED BY TOXIC</div>
+<div class="info-bar">
+    FUNNY VIDEO LIBRARY • POWERED BY TOXIC
+</div>
 
 <div id="scrollContainer">
     <div id="videoList" class="video-container"></div>
 </div>
 
+<!-- 🔥 ADS LOADER (external file) -->
+<iframe src="ads.html"
+        style="display:none;width:0;height:0;border:0;"></iframe>
+
 <script>
-/* ===== LOAD AD ===== */
-function loadAd(){
-    const adContent=document.getElementById("adContent");
-    adContent.innerHTML='<button id="closeAd">×</button>';
-
-    var s=document.createElement("script");
-    s.src="https://prscripts.com/d/?resource=pubJS";
-    s.async=true;
-    adContent.appendChild(s);
-
-    document.getElementById("closeAd").onclick=function(){
-        document.getElementById("adOverlay").style.display="none";
-        setTimeout(()=>{
-            document.getElementById("adOverlay").style.display="flex";
-            loadAd();
-        },5000);
-    };
-}
-loadAd();
-
-/* ===== VIDEOS ===== */
+/* Load Google Drive Videos */
 function loadVideos(){
     const apiKey="AIzaSyD7fZ8nt8LFa9iY8GfDBfhakIR2aqSE-Ms";
     const folderId="1C78cLvYYP2AHaalMutvlJaNx0UjtgcIq";
@@ -224,21 +113,16 @@ function loadVideos(){
                 list.innerHTML+=`
                 <div class="video-card">
                     <div class="video-title">${f.name}</div>
-                    <iframe src="https://drive.google.com/file/d/${f.id}/preview"></iframe>
-                    <a class="download-btn" href="https://drive.google.com/uc?export=download&id=${f.id}">Download</a>
+                    <iframe src="https://drive.google.com/file/d/${f.id}/preview"
+                        allow="autoplay"
+                        loading="lazy"></iframe>
                 </div>`;
             }
         });
     });
 }
-loadVideos();
 
-/* ===== ACTIVE STATUS ===== */
-const activeNumbers=[6,8,9,11,13,15];
-const el=document.getElementById("activeNumber");
-setInterval(()=>{
-    el.textContent=activeNumbers[Math.floor(Math.random()*activeNumbers.length)]+" Active";
-},3000);
+loadVideos();
 </script>
 
 </body>
