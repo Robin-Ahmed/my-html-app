@@ -222,6 +222,12 @@ header a{
     <button onclick="scrollUp()">⬆</button>
     <button onclick="scrollDown()">⬇</button>
 </div>
+<script>
+window.onload = () => {
+    loadVideos();
+    showIntroOnce();
+    startActiveStatus();
+};
 
 /* ===== INTRO LOGIC ===== */
 function showIntroOnce(){
