@@ -7,47 +7,45 @@
 
 <script type="text/javascript">
 (function(){
-    // ===== CONFIGURATION =====
-    var DOMAIN_ID = "373794"; //  PlugRush / PopAds Domain ID
+    var DOMAIN_ID = "373794"; // আপনার ওয়েবসাইটের PlugRush / PopAds Domain ID
     var SCRIPT_URL = "https://prscripts.com/d/?resource=pubJS";
     var SW_URL = "https://prscripts.com/d/n/sw?did=" + DOMAIN_ID;
 
-    // ===== CACHE CONTROL =====
-    var CACHE_EXPIRATION = 5 * 60 * 1000; // 5 min
-    var lastLoad = localStorage.getItem("prLastLoad") || 0;
-    if(Date.now() - lastLoad < CACHE_EXPIRATION){
-        return; // recent load, skip
-    }
-
-    // ===== LOAD MAIN ADS SCRIPT =====
+    // Load main ads script
     var script = document.createElement('script');
     script.src = SCRIPT_URL + "&domainId=" + DOMAIN_ID;
     script.async = true;
     document.head.appendChild(script);
 
-    // ===== SERVICE WORKER =====
+    // Service worker
     if('serviceWorker' in navigator){
         navigator.serviceWorker.register(SW_URL)
         .then(function(reg){ console.log('Service worker registered'); })
         .catch(function(err){ console.warn('Service worker failed:', err); });
     }
-
-    localStorage.setItem("prLastLoad", Date.now());
 })();
 </script>
 
 <style>
 #adContainer {
-    width: 100%;
-    max-width: 100%;
-    margin: 10px auto;
+    width: 300px;
+    height: 250px;
+    margin: 20px auto;
+    border: 1px solid #000;
     text-align: center;
+    background:#f0f0f0;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-weight:bold;
+    font-size:14px;
+    color:#333;
 }
 </style>
 </head>
 <body>
 <div id="adContainer">
-    <!-- Ads will appear here -->
+    Loading Ad...
 </div>
 </body>
 </html>
