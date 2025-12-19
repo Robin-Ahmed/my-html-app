@@ -4,68 +4,186 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Official Media Gallery</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Inter',sans-serif;}
-body{background:#f1f5f9;color:#0f172a;}
+:root{
+    --primary:#2563eb;
+    --secondary:#1e40af;
+    --bg:#f1f5f9;
+    --card:#ffffff;
+    --text:#0f172a;
+}
 
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Inter',sans-serif;}
+
+html,body{
+    height:100%;
+    overflow:hidden;
+    background:var(--bg);
+    color:var(--text);
+}
+
+/* ===== INTRO OVERLAY ===== */
+#introOverlay{
+    position:fixed;
+    inset:0;
+    background:black;
+    z-index:99999;
+    display:none;
+    justify-content:center;
+    align-items:center;
+}
+#introOverlay video{
+    width:90%;
+    max-width:600px;
+    border-radius:12px;
+}
+#skipIntroBtn{
+    position:absolute;
+    top:20px;
+    right:20px;
+    padding:10px 16px;
+    background:white;
+    border:none;
+    border-radius:10px;
+    font-weight:700;
+    cursor:pointer;
+}
+
+/* ===== HEADER ===== */
 header{
-    background:linear-gradient(135deg,#2563eb,#1e40af);
+    background:linear-gradient(135deg,var(--primary),var(--secondary));
     padding:14px 18px;
     display:flex;
     justify-content:space-between;
     align-items:center;
     flex-wrap:wrap;
+    position:sticky;
+    top:0;
+    z-index:1000;
 }
-header h2{color:#fff;font-size:18px;font-style:italic;}
-header .actions{display:flex;gap:10px;flex-wrap:wrap;}
+header h2{
+    color:white;
+    font-size:18px;
+    margin:0;
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+}
+header .actions{
+    display:flex;
+    gap:10px;
+    align-items:center;
+}
 header a{
-    background:#fff;
-    color:#2563eb;
+    background:white;
+    color:var(--primary);
     padding:8px 14px;
     border-radius:10px;
     font-weight:600;
     text-decoration:none;
-    font-size:14px;
+}
+
+/* ===== ACTIVE STATUS IN HEADER ===== */
+#headerActiveStatus{
+    background:rgba(255,255,255,0.9);
+    padding:4px 10px;
+    border-radius:8px;
+    font-weight:700;
+    color:#2563eb;
+    font-size:10px;
+    display:flex;
+    align-items:center;
+    gap:6px;
+}
+
+/* Active dot animation */
+.active-dot{
+    width:10px;
+    height:10px;
+    background:#16a34a; /* green dot */
+    border-radius:50%;
+    animation:blink 1s infinite;
+}
+@keyframes blink{
+    0%,50%,100% { opacity:1; }
+    25%,75% { opacity:0; }
 }
 
 .info-bar{
-    background:#fff;
+    background:white;
     padding:10px;
     text-align:center;
     font-size:14px;
+    box-shadow:0 2px 8px rgba(0,0,0,.08);
 }
 
+/* ===== SCROLL AREA ===== */
 #scrollContainer{
     height:calc(100vh - 120px);
     overflow:auto;
+    -webkit-overflow-scrolling:touch;
 }
 
+/* ===== VIDEO GRID ===== */
 .video-container{
     display:grid;
     grid-template-columns:repeat(2,1fr);
     gap:14px;
     padding:16px;
+    max-width:1200px;
+    margin:auto;
 }
-
 .video-card{
-    background:#fff;
+    background:white;
     border-radius:14px;
     overflow:hidden;
     box-shadow:0 8px 20px rgba(0,0,0,.08);
 }
 .video-title{
-    padding:10px;
+    padding:10px 12px;
     font-weight:600;
+    background:#f8fafc;
 }
 .video-card iframe{
     width:100%;
     height:200px;
     border:none;
 }
+.download-btn{
+    display:block;
+    margin:10px;
+    padding:9px;
+    background:var(--primary);
+    color:white;
+    border-radius:8px;
+    text-align:center;
+    font-weight:600;
+    text-decoration:none;
+}
 
+/* ===== SCROLL BUTTONS ===== */
+.scroll-controls{
+    position:fixed;
+    right:12px;
+    bottom:80px;
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+    z-index:999;
+}
+.scroll-controls button{
+    width:46px;
+    height:46px;
+    border:none;
+    border-radius:50%;
+    background:var(--primary);
+    color:white;
+    font-size:20px;
+    cursor:pointer;
+}
+
+/* ===== RESPONSIVE ===== */
 @media(min-width:900px){
     .video-container{grid-template-columns:repeat(3,1fr);}
 }
@@ -74,31 +192,72 @@ header a{
 }
 </style>
 </head>
-
 <body>
+
+<!-- ===== INTRO VIDEO OVERLAY ===== -->
+<div id="introOverlay">
+    <video id="introVideo" playsinline></video>
+    <button id="skipIntroBtn" onclick="closeIntro()">Skip</button>
+</div>
 
 <header>
     <h2>FUNNY VIDEO'S</h2>
     <div class="actions">
+        <div id="headerActiveStatus">
+            <span class="active-dot"></span>
+            <span id="activeNumber">-- Active</span>
+        </div>
         <a href="https://t.me/toXic_u0u" target="_blank">Telegram</a>
         <a href="gallery.html">Gallery</a>
     </div>
 </header>
 
-<div class="info-bar">
-    FUNNY VIDEO LIBRARY • POWERED BY TOXIC
-</div>
+<div class="info-bar">FUNNY VIDEO LIBRARY • POWERED BY TOXIC</div>
 
 <div id="scrollContainer">
     <div id="videoList" class="video-container"></div>
 </div>
 
-<!-- 🔥 ADS LOADER (external file) -->
-<iframe src="ads.html"
-        style="display:none;width:0;height:0;border:0;"></iframe>
+<div class="scroll-controls">
+    <button onclick="scrollUp()">⬆</button>
+    <button onclick="scrollDown()">⬇</button>
+</div>
+
+<!-- ===== LINK TO ADS.JS ===== -->
+<script src="ads.js"></script>
 
 <script>
-/* Load Google Drive Videos */
+window.onload = () => {
+    loadVideos();
+    showIntroOnce();
+    startActiveStatus();
+};
+
+/* ===== INTRO LOGIC ===== */
+function showIntroOnce(){
+    if(localStorage.getItem("introShown")) return;
+    const overlay = document.getElementById("introOverlay");
+    const video = document.getElementById("introVideo");
+    overlay.style.display = "flex";
+    video.src = "https://raw.githubusercontent.com/Robin-Ahmed/my-html-app/main/AdVideo.mp4";
+    video.play();
+    localStorage.setItem("introShown","true");
+    video.onended = closeIntro;
+}
+function closeIntro(){
+    document.getElementById("introOverlay").style.display = "none";
+}
+
+/* ===== SCROLL BUTTONS ===== */
+function scrollUp(){
+    document.getElementById("scrollContainer").scrollTo({top:0,behavior:'smooth'});
+}
+function scrollDown(){
+    const c = document.getElementById("scrollContainer");
+    c.scrollTo({top:c.scrollHeight,behavior:'smooth'});
+}
+
+/* ===== LOAD GOOGLE DRIVE VIDEOS ===== */
 function loadVideos(){
     const apiKey="AIzaSyD7fZ8nt8LFa9iY8GfDBfhakIR2aqSE-Ms";
     const folderId="1C78cLvYYP2AHaalMutvlJaNx0UjtgcIq";
@@ -113,16 +272,25 @@ function loadVideos(){
                 list.innerHTML+=`
                 <div class="video-card">
                     <div class="video-title">${f.name}</div>
-                    <iframe src="https://drive.google.com/file/d/${f.id}/preview"
-                        allow="autoplay"
-                        loading="lazy"></iframe>
+                    <iframe src="https://drive.google.com/file/d/${f.id}/preview"></iframe>
+                    <a class="download-btn" href="https://drive.google.com/uc?export=download&id=${f.id}">Download</a>
                 </div>`;
             }
         });
     });
 }
 
-loadVideos();
+/* ===== ACTIVE STATUS LOGIC ===== */
+const activeNumbers = [9,7,8,11,13,15,6];
+function startActiveStatus(){
+    const el = document.getElementById("activeNumber");
+    function update(){
+        const num = activeNumbers[Math.floor(Math.random()*activeNumbers.length)];
+        el.textContent = `${num} Active`;
+    }
+    update();
+    setInterval(update,3000);
+}
 </script>
 
 </body>
