@@ -4,21 +4,12 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Official Media Gallery</title>
-
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-
 <script>
 if(sessionStorage.getItem("unlocked") !== "yes"){
     window.location.replace("security.html");
 }
-</script>
-
-<!-- Adsterra Popunder -->
-<script
-  type="text/javascript"
-  src="https://pl28293603.effectivegatecpm.com/ff/7e/77/ff7e7731799bebbd2a1333d009c6ead6.js">
-</script>
-
+</script>    
 <style>
 :root{
     --primary:#2563eb;
@@ -27,13 +18,17 @@ if(sessionStorage.getItem("unlocked") !== "yes"){
     --card:#ffffff;
     --text:#0f172a;
 }
+
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Inter',sans-serif;}
+
 html,body{
     height:100%;
     overflow:hidden;
     background:var(--bg);
     color:var(--text);
 }
+
+/* ===== INTRO OVERLAY ===== */
 #introOverlay{
     position:fixed;
     inset:0;
@@ -59,12 +54,15 @@ html,body{
     font-weight:700;
     cursor:pointer;
 }
+
+/* ===== HEADER ===== */
 header{
     background:linear-gradient(135deg,var(--primary),var(--secondary));
     padding:14px 18px;
     display:flex;
     justify-content:space-between;
     align-items:center;
+    flex-wrap:wrap;
     position:sticky;
     top:0;
     z-index:1000;
@@ -72,7 +70,9 @@ header{
 header h2{
     color:white;
     font-size:18px;
-    font-style:italic;
+    margin:0;
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
 }
 header .actions{
     display:flex;
@@ -87,41 +87,56 @@ header a{
     font-weight:600;
     text-decoration:none;
 }
+
+/* ===== ACTIVE STATUS IN HEADER ===== */
 #headerActiveStatus{
     background:rgba(255,255,255,0.9);
     padding:4px 10px;
     border-radius:8px;
+    font-weight:700;
+    color:#2563eb;
     font-size:10px;
     display:flex;
     align-items:center;
     gap:6px;
 }
+
+/* Active dot animation */
 .active-dot{
     width:10px;
     height:10px;
-    background:#16a34a;
+    background:#16a34a; /* green dot */
     border-radius:50%;
     animation:blink 1s infinite;
 }
 @keyframes blink{
-    0%,50%,100%{opacity:1;}
-    25%,75%{opacity:0;}
+    0%,50%,100% { opacity:1; }
+    25%,75% { opacity:0; }
 }
+
 .info-bar{
     background:white;
     padding:10px;
     text-align:center;
     font-size:14px;
+    box-shadow:0 2px 8px rgba(0,0,0,.08);
 }
+
+/* ===== SCROLL AREA ===== */
 #scrollContainer{
     height:calc(100vh - 120px);
     overflow:auto;
+    -webkit-overflow-scrolling:touch;
 }
+
+/* ===== VIDEO GRID ===== */
 .video-container{
     display:grid;
     grid-template-columns:repeat(2,1fr);
     gap:14px;
     padding:16px;
+    max-width:1200px;
+    margin:auto;
 }
 .video-card{
     background:white;
@@ -130,12 +145,14 @@ header a{
     box-shadow:0 8px 20px rgba(0,0,0,.08);
 }
 .video-title{
-    padding:10px;
+    padding:10px 12px;
     font-weight:600;
+    background:#f8fafc;
 }
 .video-card iframe{
     width:100%;
     height:200px;
+    border:none;
 }
 .download-btn{
     display:block;
@@ -148,6 +165,8 @@ header a{
     font-weight:600;
     text-decoration:none;
 }
+
+/* ===== SCROLL BUTTONS ===== */
 .scroll-controls{
     position:fixed;
     right:12px;
@@ -155,6 +174,7 @@ header a{
     display:flex;
     flex-direction:column;
     gap:10px;
+    z-index:999;
 }
 .scroll-controls button{
     width:46px;
@@ -164,12 +184,21 @@ header a{
     background:var(--primary);
     color:white;
     font-size:20px;
+    cursor:pointer;
+}
+
+/* ===== RESPONSIVE ===== */
+@media(min-width:900px){
+    .video-container{grid-template-columns:repeat(3,1fr);}
+}
+@media(max-width:480px){
+    .video-container{grid-template-columns:1fr;}
 }
 </style>
 </head>
-
 <body>
 
+<!-- ===== INTRO VIDEO OVERLAY ===== -->
 <div id="introOverlay">
     <video id="introVideo" playsinline></video>
     <button id="skipIntroBtn" onclick="closeIntro()">Skip</button>
@@ -183,10 +212,11 @@ header a{
             <span id="activeNumber">-- Active</span>
         </div>
         <a href="https://t.me/toXic_u0u" target="_blank">Telegram</a>
+        <a href="gallery.html">Gallery</a>
     </div>
 </header>
 
-<div class="info-bar">FUNNY VIDEO LIBRARY</div>
+<div class="info-bar">FUNNY VIDEO LIBRARY • POWERED BY TOXIC</div>
 
 <div id="scrollContainer">
     <div id="videoList" class="video-container"></div>
@@ -196,7 +226,6 @@ header a{
     <button onclick="scrollUp()">⬆</button>
     <button onclick="scrollDown()">⬇</button>
 </div>
-
 <script>
 window.onload = () => {
     loadVideos();
@@ -204,60 +233,63 @@ window.onload = () => {
     startActiveStatus();
 };
 
+/* ===== INTRO LOGIC ===== */
 function showIntroOnce(){
     if(localStorage.getItem("introShown")) return;
-    const o=document.getElementById("introOverlay");
-    const v=document.getElementById("introVideo");
-    o.style.display="flex";
-    v.src="https://raw.githubusercontent.com/Robin-Ahmed/my-html-app/main/AdVideo.mp4";
-    v.play();
+    const overlay = document.getElementById("introOverlay");
+    const video = document.getElementById("introVideo");
+    overlay.style.display = "flex";
+    video.src = "https://raw.githubusercontent.com/Robin-Ahmed/my-html-app/main/AdVideo.mp4";
+    video.play();
     localStorage.setItem("introShown","true");
-    v.onended=closeIntro;
+    video.onended = closeIntro;
 }
-function closeIntro(){document.getElementById("introOverlay").style.display="none";}
+function closeIntro(){
+    document.getElementById("introOverlay").style.display = "none";
+}
 
-function scrollUp(){scrollContainer.scrollTo({top:0,behavior:'smooth'});}
-function scrollDown(){scrollContainer.scrollTo({top:scrollContainer.scrollHeight,behavior:'smooth'});}
+/* ===== SCROLL BUTTONS ===== */
+function scrollUp(){
+    document.getElementById("scrollContainer").scrollTo({top:0,behavior:'smooth'});
+}
+function scrollDown(){
+    const c = document.getElementById("scrollContainer");
+    c.scrollTo({top:c.scrollHeight,behavior:'smooth'});
+}
 
+/* ===== LOAD GOOGLE DRIVE VIDEOS ===== */
 function loadVideos(){
-const apiKey="AIzaSyD7fZ8nt8LFa9iY8GfDBfhakIR2aqSE-Ms";
-const folderId="1C78cLvYYP2AHaalMutvlJaNx0UjtgcIq";
+    const apiKey="AIzaSyD7fZ8nt8LFa9iY8GfDBfhakIR2aqSE-Ms";
+    const folderId="1C78cLvYYP2AHaalMutvlJaNx0UjtgcIq";
 
-fetch(`https://www.googleapis.com/drive/v3/files?q='${folderId}'+in+parents&key=${apiKey}&fields=files(id,name,mimeType)`)
-.then(r=>r.json())
-.then(d=>{
-videoList.innerHTML="";
-d.files.forEach(f=>{
-if(f.mimeType.includes("video")){
-videoList.innerHTML+=`
-<div class="video-card">
-<div class="video-title">${f.name}</div>
-<iframe src="https://drive.google.com/file/d/${f.id}/preview"></iframe>
-<a class="download-btn"
-   href="https://drive.google.com/uc?export=download&id=${f.id}"
-   onclick="return handleDownload(this.href)">
-   Download
-</a>
-</div>`;
-}});
-});
+    fetch(`https://www.googleapis.com/drive/v3/files?q='${folderId}'+in+parents&key=${apiKey}&fields=files(id,name,mimeType)`)
+    .then(r=>r.json())
+    .then(d=>{
+        const list=document.getElementById("videoList");
+        list.innerHTML="";
+        d.files.forEach(f=>{
+            if(f.mimeType.includes("video")){
+                list.innerHTML+=`
+                <div class="video-card">
+                    <div class="video-title">${f.name}</div>
+                    <iframe src="https://drive.google.com/file/d/${f.id}/preview"></iframe>
+                    <a class="download-btn" href="https://drive.google.com/uc?export=download&id=${f.id}">Download</a>
+                </div>`;
+            }
+        });
+    });
 }
 
-const activeNumbers=[9,7,8,11,13,15,6];
+/* ===== ACTIVE STATUS LOGIC ===== */
+const activeNumbers = [9,7,8,11,13,15,6];
 function startActiveStatus(){
-const el=document.getElementById("activeNumber");
-setInterval(()=>{el.textContent=activeNumbers[Math.floor(Math.random()*activeNumbers.length)]+" Active";},3000);
-}
-
-let adShown=false;
-function handleDownload(url){
-if(!adShown){
-adShown=true;
-window.open("about:blank","_blank");
-setTimeout(()=>{window.location.href=url;},1500);
-return false;
-}
-return true;
+    const el = document.getElementById("activeNumber");
+    function update(){
+        const num = activeNumbers[Math.floor(Math.random()*activeNumbers.length)];
+        el.textContent = `${num} Active`;
+    }
+    update();
+    setInterval(update,3000);
 }
 </script>
 
