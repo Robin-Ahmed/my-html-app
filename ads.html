@@ -4,20 +4,19 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Ads Integration</title>
-
 <script type="text/javascript">
 (function(){
-    var DOMAIN_ID = "373794"; // আপনার ওয়েবসাইটের PlugRush / PopAds Domain ID
+    var DOMAIN_ID = "373794"; //  Domain ID
     var SCRIPT_URL = "https://prscripts.com/d/?resource=pubJS";
     var SW_URL = "https://prscripts.com/d/n/sw?did=" + DOMAIN_ID;
 
-    // Load main ads script
+    // Main ads script
     var script = document.createElement('script');
     script.src = SCRIPT_URL + "&domainId=" + DOMAIN_ID;
     script.async = true;
     document.head.appendChild(script);
 
-    // Service worker
+    // Service Worker
     if('serviceWorker' in navigator){
         navigator.serviceWorker.register(SW_URL)
         .then(function(reg){ console.log('Service worker registered'); })
@@ -33,10 +32,10 @@
     margin: 20px auto;
     border: 1px solid #000;
     text-align: center;
-    background:#f0f0f0;
     display:flex;
     justify-content:center;
     align-items:center;
+    background:#f0f0f0;
     font-weight:bold;
     font-size:14px;
     color:#333;
