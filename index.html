@@ -11,19 +11,13 @@
     --primary:#2563eb;
     --secondary:#1e40af;
     --bg:#f1f5f9;
-    --card:#ffffff;
     --text:#0f172a;
 }
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Inter',sans-serif;}
 html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--text);}
 
-/* INTRO OVERLAY */
-#introOverlay{position:fixed;inset:0;background:black;z-index:99999;display:none;justify-content:center;align-items:center;}
-#introOverlay video{width:90%;max-width:600px;border-radius:12px;}
-#skipIntroBtn{position:absolute;top:20px;right:20px;padding:10px 16px;background:white;border:none;border-radius:10px;font-weight:700;cursor:pointer;}
-
 /* HEADER */
-header{background:linear-gradient(135deg,var(--primary),var(--secondary));padding:14px 18px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;position:sticky;top:0;z-index:1000;}
+header{background:linear-gradient(135deg,var(--primary),var(--secondary));padding:14px 18px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:1000;}
 header h2{color:white;font-size:18px;margin:0;font-family:'Playfair Display', serif;font-style:italic;}
 header .actions{display:flex;gap:10px;align-items:center;}
 header a{background:white;color:var(--primary);padding:8px 14px;border-radius:10px;font-weight:600;text-decoration:none;}
@@ -35,7 +29,7 @@ header a{background:white;color:var(--primary);padding:8px 14px;border-radius:10
 .info-bar{background:white;padding:10px;text-align:center;font-size:14px;box-shadow:0 2px 8px rgba(0,0,0,.08);}
 
 /* SCROLL AREA */
-#scrollContainer{height:calc(100vh - 120px);overflow:auto;-webkit-overflow-scrolling:touch;}
+#scrollContainer{height:calc(100vh - 200px);overflow:auto;-webkit-overflow-scrolling:touch;}
 
 /* VIDEO GRID */
 .video-container{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;padding:16px;max-width:1200px;margin:auto;}
@@ -53,12 +47,6 @@ header a{background:white;color:var(--primary);padding:8px 14px;border-radius:10
 </style>
 </head>
 <body>
-
-<!-- INTRO VIDEO -->
-<div id="introOverlay">
-    <video id="introVideo" playsinline></video>
-    <button id="skipIntroBtn" onclick="closeIntro()">Skip</button>
-</div>
 
 <header>
     <h2>FUNNY VIDEO'S</h2>
@@ -81,28 +69,14 @@ header a{background:white;color:var(--primary);padding:8px 14px;border-radius:10
     <button onclick="scrollDown()">⬇</button>
 </div>
 
-<!-- ADS IFRAME -->
-<iframe src="ads.html" style="width:0;height:0;border:0;display:none;"></iframe>
+<!-- VISIBLE ADS -->
+<iframe src="ads.html" style="width:300px;height:250px;border:1px solid #000;margin:10px auto;display:block;"></iframe>
 
 <script>
 window.onload = () => {
     loadVideos();
-    showIntroOnce();
     startActiveStatus();
 };
-
-/* INTRO */
-function showIntroOnce(){
-    if(localStorage.getItem("introShown")) return;
-    const overlay=document.getElementById("introOverlay");
-    const video=document.getElementById("introVideo");
-    overlay.style.display="flex";
-    video.src="https://raw.githubusercontent.com/Robin-Ahmed/my-html-app/main/AdVideo.mp4";
-    video.play();
-    localStorage.setItem("introShown","true");
-    video.onended=closeIntro;
-}
-function closeIntro(){document.getElementById("introOverlay").style.display="none";}
 
 /* SCROLL */
 function scrollUp(){document.getElementById("scrollContainer").scrollTo({top:0,behavior:'smooth'});}
@@ -135,10 +109,7 @@ function loadVideos(){
 const activeNumbers=[9,7,8,11,13,15,6];
 function startActiveStatus(){
     const el=document.getElementById("activeNumber");
-    function update(){
-        const num=activeNumbers[Math.floor(Math.random()*activeNumbers.length)];
-        el.textContent=`${num} Active`;
-    }
+    function update(){const num=activeNumbers[Math.floor(Math.random()*activeNumbers.length)]; el.textContent=`${num} Active`;}
     update();
     setInterval(update,3000);
 }
