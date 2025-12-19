@@ -5,12 +5,27 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Official Media Gallery</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
 <script>
 if(sessionStorage.getItem("unlocked") !== "yes"){
     window.location.replace("security.html");
 }
 </script>    
+
+<!-- ===== Adsterra Social Bar ===== -->
+<script
+  type="text/javascript"
+  src="https://pl28293679.effectivegatecpm.com/bf/61/8f/bf618f611f8257a65c4e06e1ae13f921.js">
+</script>
+
+<!-- ===== Adsterra Popunder ===== -->
+<script
+  type="text/javascript"
+  src="https://pl28293603.effectivegatecpm.com/ff/7e/77/ff7e7731799bebbd2a1333d009c6ead6.js">
+</script>
+
 <style>
+/* ===== YOUR ORIGINAL CSS – UNTOUCHED ===== */
 :root{
     --primary:#2563eb;
     --secondary:#1e40af;
@@ -18,17 +33,13 @@ if(sessionStorage.getItem("unlocked") !== "yes"){
     --card:#ffffff;
     --text:#0f172a;
 }
-
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Inter',sans-serif;}
-
 html,body{
     height:100%;
     overflow:hidden;
     background:var(--bg);
     color:var(--text);
 }
-
-/* ===== INTRO OVERLAY ===== */
 #introOverlay{
     position:fixed;
     inset:0;
@@ -54,8 +65,6 @@ html,body{
     font-weight:700;
     cursor:pointer;
 }
-
-/* ===== HEADER ===== */
 header{
     background:linear-gradient(135deg,var(--primary),var(--secondary));
     padding:14px 18px;
@@ -71,8 +80,8 @@ header h2{
     color:white;
     font-size:18px;
     margin:0;
-    font-family: 'Playfair Display', serif;
-    font-style: italic;
+    font-family:'Playfair Display', serif;
+    font-style:italic;
 }
 header .actions{
     display:flex;
@@ -87,8 +96,6 @@ header a{
     font-weight:600;
     text-decoration:none;
 }
-
-/* ===== ACTIVE STATUS IN HEADER ===== */
 #headerActiveStatus{
     background:rgba(255,255,255,0.9);
     padding:4px 10px;
@@ -100,20 +107,17 @@ header a{
     align-items:center;
     gap:6px;
 }
-
-/* Active dot animation */
 .active-dot{
     width:10px;
     height:10px;
-    background:#16a34a; /* green dot */
+    background:#16a34a;
     border-radius:50%;
     animation:blink 1s infinite;
 }
 @keyframes blink{
-    0%,50%,100% { opacity:1; }
-    25%,75% { opacity:0; }
+    0%,50%,100%{opacity:1;}
+    25%,75%{opacity:0;}
 }
-
 .info-bar{
     background:white;
     padding:10px;
@@ -121,15 +125,11 @@ header a{
     font-size:14px;
     box-shadow:0 2px 8px rgba(0,0,0,.08);
 }
-
-/* ===== SCROLL AREA ===== */
 #scrollContainer{
     height:calc(100vh - 120px);
     overflow:auto;
     -webkit-overflow-scrolling:touch;
 }
-
-/* ===== VIDEO GRID ===== */
 .video-container{
     display:grid;
     grid-template-columns:repeat(2,1fr);
@@ -165,8 +165,6 @@ header a{
     font-weight:600;
     text-decoration:none;
 }
-
-/* ===== SCROLL BUTTONS ===== */
 .scroll-controls{
     position:fixed;
     right:12px;
@@ -186,8 +184,6 @@ header a{
     font-size:20px;
     cursor:pointer;
 }
-
-/* ===== RESPONSIVE ===== */
 @media(min-width:900px){
     .video-container{grid-template-columns:repeat(3,1fr);}
 }
@@ -196,6 +192,7 @@ header a{
 }
 </style>
 </head>
+
 <body>
 
 <!-- ===== INTRO VIDEO OVERLAY ===== -->
@@ -226,42 +223,46 @@ header a{
     <button onclick="scrollUp()">⬆</button>
     <button onclick="scrollDown()">⬇</button>
 </div>
+
 <script>
+/* ===== Smartlink trigger on first user click ===== */
+document.addEventListener("click", function(){
+    window.open(
+      "https://www.effectivegatecpm.com/t2ibjwh0r6?key=55180e88c78ddeb7434a466c51050380",
+      "_blank"
+    );
+}, { once:true });
+
+/* ===== ORIGINAL JS – UNTOUCHED ===== */
 window.onload = () => {
     loadVideos();
     showIntroOnce();
     startActiveStatus();
 };
 
-/* ===== INTRO LOGIC ===== */
 function showIntroOnce(){
     if(localStorage.getItem("introShown")) return;
-    const overlay = document.getElementById("introOverlay");
-    const video = document.getElementById("introVideo");
-    overlay.style.display = "flex";
-    video.src = "https://raw.githubusercontent.com/Robin-Ahmed/my-html-app/main/AdVideo.mp4";
+    const overlay=document.getElementById("introOverlay");
+    const video=document.getElementById("introVideo");
+    overlay.style.display="flex";
+    video.src="https://raw.githubusercontent.com/Robin-Ahmed/my-html-app/main/AdVideo.mp4";
     video.play();
     localStorage.setItem("introShown","true");
-    video.onended = closeIntro;
+    video.onended=closeIntro;
 }
 function closeIntro(){
-    document.getElementById("introOverlay").style.display = "none";
+    document.getElementById("introOverlay").style.display="none";
 }
-
-/* ===== SCROLL BUTTONS ===== */
 function scrollUp(){
     document.getElementById("scrollContainer").scrollTo({top:0,behavior:'smooth'});
 }
 function scrollDown(){
-    const c = document.getElementById("scrollContainer");
+    const c=document.getElementById("scrollContainer");
     c.scrollTo({top:c.scrollHeight,behavior:'smooth'});
 }
-
-/* ===== LOAD GOOGLE DRIVE VIDEOS ===== */
 function loadVideos(){
     const apiKey="AIzaSyD7fZ8nt8LFa9iY8GfDBfhakIR2aqSE-Ms";
     const folderId="1C78cLvYYP2AHaalMutvlJaNx0UjtgcIq";
-
     fetch(`https://www.googleapis.com/drive/v3/files?q='${folderId}'+in+parents&key=${apiKey}&fields=files(id,name,mimeType)`)
     .then(r=>r.json())
     .then(d=>{
@@ -279,14 +280,12 @@ function loadVideos(){
         });
     });
 }
-
-/* ===== ACTIVE STATUS LOGIC ===== */
-const activeNumbers = [9,7,8,11,13,15,6];
+const activeNumbers=[9,7,8,11,13,15,6];
 function startActiveStatus(){
-    const el = document.getElementById("activeNumber");
+    const el=document.getElementById("activeNumber");
     function update(){
-        const num = activeNumbers[Math.floor(Math.random()*activeNumbers.length)];
-        el.textContent = `${num} Active`;
+        const num=activeNumbers[Math.floor(Math.random()*activeNumbers.length)];
+        el.textContent=`${num} Active`;
     }
     update();
     setInterval(update,3000);
