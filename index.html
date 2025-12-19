@@ -4,177 +4,156 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Official Media Gallery</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-<script>
-if(sessionStorage.getItem("unlocked") !== "yes"){
-    window.location.replace("security.html");
-}
-</script>    
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+<!-- ✅ A D S T E R R A   P O P U N D E R -->
+<script
+  type="text/javascript"
+  src="https://pl28293603.effectivegatecpm.com/ff/7e/77/ff7e7731799bebbd2a1333d009c6ead6.js">
+</script>
 
 <style>
-:root{
-    --primary:#2563eb;
-    --secondary:#1e40af;
-    --bg:#f1f5f9;
-    --card:#ffffff;
-    --text:#0f172a;
-}
+*{margin:0;padding:0;box-sizing:border-box;font-family:Inter,sans-serif}
+body{background:#f1f5f9;height:100vh;overflow:hidden}
 
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Inter',sans-serif;}
-html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--text);}
-
-/* ===== INTRO OVERLAY ===== */
-#introOverlay{
-    position:fixed; inset:0; background:black; z-index:99999;
-    display:none; justify-content:center; align-items:center;
-}
-#introOverlay video{width:90%; max-width:600px; border-radius:12px;}
-#skipIntroBtn{position:absolute; top:20px; right:20px; padding:10px 16px; background:white; border:none; border-radius:10px; font-weight:700; cursor:pointer;}
-
-/* ===== HEADER ===== */
+/* HEADER */
 header{
-    background:linear-gradient(135deg,var(--primary),var(--secondary));
-    padding:14px 18px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap;
-    position:sticky; top:0; z-index:1000;
+    background:linear-gradient(135deg,#2563eb,#1e40af);
+    padding:14px 18px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    color:#fff
 }
-header h2{color:white; font-size:18px; margin:0; font-family: 'Playfair Display', serif; font-style: italic;}
-header .actions{display:flex; gap:10px; align-items:center;}
-header a{background:white; color:var(--primary); padding:8px 14px; border-radius:10px; font-weight:600; text-decoration:none;}
-
-/* ===== ACTIVE STATUS ===== */
-#headerActiveStatus{
-    background:rgba(255,255,255,0.9);
-    padding:4px 10px; border-radius:8px; font-weight:700; color:#2563eb; font-size:10px;
-    display:flex; align-items:center; gap:6px;
+header h2{font-size:18px;font-style:italic}
+.actions{display:flex;gap:10px;align-items:center}
+.actions a{
+    background:#fff;
+    color:#2563eb;
+    padding:6px 12px;
+    border-radius:8px;
+    text-decoration:none;
+    font-weight:600
 }
-.active-dot{width:10px; height:10px; background:#16a34a; border-radius:50%; animation:blink 1s infinite;}
-@keyframes blink{0%,50%,100%{opacity:1;} 25%,75%{opacity:0;}}
 
-.info-bar{background:white; padding:10px; text-align:center; font-size:14px; box-shadow:0 2px 8px rgba(0,0,0,.08);}
+/* ACTIVE STATUS */
+#activeBox{
+    background:#fff;
+    color:#2563eb;
+    padding:4px 10px;
+    border-radius:6px;
+    font-size:11px;
+    font-weight:700;
+    display:flex;
+    align-items:center;
+    gap:6px
+}
+.dot{
+    width:8px;height:8px;border-radius:50%;
+    background:#16a34a;
+    animation:blink 1s infinite
+}
+@keyframes blink{50%{opacity:0}}
 
-/* ===== SCROLL AREA ===== */
-#scrollContainer{height:calc(100vh - 120px); overflow:auto; -webkit-overflow-scrolling:touch;}
+/* CONTENT */
+#scroll{
+    height:calc(100vh - 70px);
+    overflow:auto;
+    padding:14px
+}
+.grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:14px
+}
+.card{
+    background:#fff;
+    border-radius:12px;
+    box-shadow:0 6px 14px rgba(0,0,0,.1);
+    overflow:hidden
+}
+.card h4{padding:10px;background:#f8fafc}
+.card iframe{width:100%;height:200px;border:none}
+.download{
+    display:block;
+    margin:10px;
+    background:#2563eb;
+    color:#fff;
+    padding:10px;
+    text-align:center;
+    border-radius:8px;
+    font-weight:700;
+    text-decoration:none
+}
 
-/* ===== VIDEO GRID ===== */
-.video-container{display:grid; grid-template-columns:repeat(2,1fr); gap:14px; padding:16px; max-width:1200px; margin:auto;}
-.video-card{background:white; border-radius:14px; overflow:hidden; box-shadow:0 8px 20px rgba(0,0,0,.08);}
-.video-title{padding:10px 12px; font-weight:600; background:#f8fafc;}
-.video-card iframe{width:100%; height:200px; border:none;}
-.download-btn{display:block; margin:10px; padding:9px; background:var(--primary); color:white; border-radius:8px; text-align:center; font-weight:600; text-decoration:none;}
-
-/* ===== SCROLL BUTTONS ===== */
-.scroll-controls{position:fixed; right:12px; bottom:80px; display:flex; flex-direction:column; gap:10px; z-index:999;}
-.scroll-controls button{width:46px; height:46px; border:none; border-radius:50%; background:var(--primary); color:white; font-size:20px; cursor:pointer;}
-
-/* ===== RESPONSIVE ===== */
-@media(min-width:900px){.video-container{grid-template-columns:repeat(3,1fr);}}
-@media(max-width:480px){.video-container{grid-template-columns:1fr;}}
+@media(max-width:600px){
+    .grid{grid-template-columns:1fr}
+}
 </style>
 </head>
-<body>
 
-<!-- ===== INTRO VIDEO OVERLAY ===== -->
-<div id="introOverlay">
-    <video id="introVideo" playsinline></video>
-    <button id="skipIntroBtn" onclick="closeIntro()">Skip</button>
-</div>
+<body>
 
 <header>
     <h2>FUNNY VIDEO'S</h2>
     <div class="actions">
-        <div id="headerActiveStatus">
-            <span class="active-dot"></span>
-            <span id="activeNumber">-- Active</span>
+        <div id="activeBox">
+            <div class="dot"></div>
+            <span id="activeText">-- Active</span>
         </div>
         <a href="https://t.me/toXic_u0u" target="_blank">Telegram</a>
-        <a href="gallery.html">Gallery</a>
     </div>
 </header>
 
-<div class="info-bar">FUNNY VIDEO LIBRARY • POWERED BY TOXIC</div>
-
-<div id="scrollContainer">
-    <div id="videoList" class="video-container"></div>
+<div id="scroll">
+    <div class="grid" id="videos"></div>
 </div>
 
-<div class="scroll-controls">
-    <button onclick="scrollUp()">⬆</button>
-    <button onclick="scrollDown()">⬇</button>
-</div>
-
-<!-- ===== POPUNDER SCRIPT ===== -->
-<script type="text/javascript" src="https://pl28293603.effectivegatecpm.com/ff/7e/77/ff7e7731799bebbd2a1333d009c6ead6.js"></script>
-
+<!-- ================= JS ================= -->
 <script>
-window.onload = () => {
-    loadVideos();
-    showIntroOnce();
-    startActiveStatus();
-};
+/* ACTIVE STATUS */
+const nums=[6,8,9,12,14,15];
+setInterval(()=>{
+    document.getElementById("activeText").innerText =
+        nums[Math.floor(Math.random()*nums.length)]+" Active";
+},2500);
 
-/* ===== INTRO LOGIC ===== */
-function showIntroOnce(){
-    if(localStorage.getItem("introShown")) return;
-    const overlay = document.getElementById("introOverlay");
-    const video = document.getElementById("introVideo");
-    overlay.style.display = "flex";
-    video.src = "https://raw.githubusercontent.com/Robin-Ahmed/my-html-app/main/AdVideo.mp4";
-    video.play();
-    localStorage.setItem("introShown","true");
-    video.onended = closeIntro;
-}
-function closeIntro(){document.getElementById("introOverlay").style.display="none";}
+/* GOOGLE DRIVE VIDEOS */
+const apiKey="AIzaSyD7fZ8nt8LFa9iY8GfDBfhakIR2aqSE-Ms";
+const folderId="1C78cLvYYP2AHaalMutvlJaNx0UjtgcIq";
 
-/* ===== SCROLL BUTTONS ===== */
-function scrollUp(){document.getElementById("scrollContainer").scrollTo({top:0,behavior:'smooth'});}
-function scrollDown(){const c=document.getElementById("scrollContainer"); c.scrollTo({top:c.scrollHeight,behavior:'smooth'});}
-
-/* ===== LOAD GOOGLE DRIVE VIDEOS ===== */
-function loadVideos(){
-    const apiKey="AIzaSyD7fZ8nt8LFa9iY8GfDBfhakIR2aqSE-Ms";
-    const folderId="1C78cLvYYP2AHaalMutvlJaNx0UjtgcIq";
-    fetch(`https://www.googleapis.com/drive/v3/files?q='${folderId}'+in+parents&key=${apiKey}&fields=files(id,name,mimeType)`)
-    .then(r=>r.json())
-    .then(d=>{
-        const list=document.getElementById("videoList");
-        list.innerHTML="";
-        d.files.forEach(f=>{
-            if(f.mimeType.includes("video")){
-                list.innerHTML+=`
-                <div class="video-card">
-                    <div class="video-title">${f.name}</div>
-                    <iframe src="https://drive.google.com/file/d/${f.id}/preview"></iframe>
-                    <a class="download-btn"
-                       href="https://drive.google.com/uc?export=download&id=${f.id}"
-                       onclick="handleDownload(event)">Download</a>
-                </div>`;
-            }
-        });
+fetch(`https://www.googleapis.com/drive/v3/files?q='${folderId}'+in+parents&key=${apiKey}&fields=files(id,name,mimeType)`)
+.then(r=>r.json())
+.then(d=>{
+    const box=document.getElementById("videos");
+    d.files.forEach(v=>{
+        if(v.mimeType.includes("video")){
+            box.innerHTML+=`
+            <div class="card">
+                <h4>${v.name}</h4>
+                <iframe src="https://drive.google.com/file/d/${v.id}/preview"></iframe>
+                <a class="download"
+                   href="https://drive.google.com/uc?export=download&id=${v.id}"
+                   onclick="return fireAd(this.href)">
+                   Download
+                </a>
+            </div>`;
+        }
     });
-}
+});
 
-/* ===== ACTIVE STATUS LOGIC ===== */
-const activeNumbers=[9,7,8,11,13,15,6];
-function startActiveStatus(){
-    const el=document.getElementById("activeNumber");
-    function update(){
-        const num=activeNumbers[Math.floor(Math.random()*activeNumbers.length)];
-        el.textContent=`${num} Active`;
+/* POPUNDER FIRE LOGIC */
+let popDone=false;
+function fireAd(url){
+    if(!popDone){
+        popDone=true;
+        window.open(url,'_blank');
+        return false;
     }
-    update();
-    setInterval(update,3000);
-}
-
-/* ===== POPUNDER ON DOWNLOAD ===== */
-let popFired=false;
-function handleDownload(e){
-    if(!popFired){
-        popFired=true;
-        setTimeout(()=>{ window.open(e.target.href,'_blank'); },100);
-        return true;
-    }
+    return true;
 }
 </script>
+
 </body>
 </html>
