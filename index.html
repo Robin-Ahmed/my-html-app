@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Official Media Gallery</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-
 <style>
 :root{
     --primary:#2563eb;
@@ -137,15 +136,6 @@ header a{
     cursor:pointer;
 }
 
-/* ADS IFRAME */
-.ads-frame{
-    width:300px;
-    height:250px;
-    border:1px solid #000;
-    margin:20px auto;
-    display:block;
-}
-
 /* RESPONSIVE */
 @media(min-width:900px){.video-container{grid-template-columns:repeat(3,1fr);}}
 @media(max-width:480px){.video-container{grid-template-columns:1fr;}}
@@ -176,9 +166,6 @@ header a{
     <button onclick="scrollDown()">⬇</button>
 </div>
 
-<!-- ADS IFRAME -->
-<iframe src="ads.html" class="ads-frame"></iframe>
-
 <script>
 window.onload = () => {
     loadVideos();
@@ -201,12 +188,20 @@ function loadVideos(){
         list.innerHTML="";
         d.files.forEach(f=>{
             if(f.mimeType.includes("video")){
-                list.innerHTML+=`
-                <div class="video-card">
+                const card=document.createElement("div");
+                card.className="video-card";
+                card.innerHTML=`
                     <div class="video-title">${f.name}</div>
                     <iframe src="https://drive.google.com/file/d/${f.id}/preview"></iframe>
                     <a class="download-btn" href="https://drive.google.com/uc?export=download&id=${f.id}">Download</a>
-                </div>`;
+                `;
+                list.appendChild(card);
+
+                // Video play hover/click -> show ad
+                const iframe = card.querySelector("iframe");
+                iframe.addEventListener("mouseenter", ()=>{
+                    showVideoAd();
+                });
             }
         });
     });
@@ -220,6 +215,21 @@ function startActiveStatus(){
     update();
     setInterval(update,3000);
 }
+
+/* SHOW VIDEO AD */
+function showVideoAd(){
+    if(document.getElementById("videoAdFrame")) return; // prevent multiple
+
+    const adFrame=document.createElement("iframe");
+    adFrame.id="videoAdFrame";
+    adFrame.src="ads.html";
+    adFrame.style.width="300px";
+    adFrame.style.height="250px";
+    adFrame.style.display="block";
+    adFrame.style.margin="20px auto";
+    document.body.insertBefore(adFrame, document.getElementById("scrollContainer"));
+}
 </script>
+
 </body>
 </html>
