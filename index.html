@@ -6,7 +6,7 @@
 <title>Official Media Gallery</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-/* lock code   */
+/* ===== lOCK ===== */
 <style>
 :root{
     --primary:#2563eb;
@@ -232,19 +232,6 @@ window.onload = () => {
 };
 
 /* ===== INTRO LOGIC ===== */
-function showIntroOnce(){
-    if(localStorage.getItem("introShown")) return;
-    const overlay = document.getElementById("introOverlay");
-    const video = document.getElementById("introVideo");
-    overlay.style.display = "flex";
-    video.src = "https://raw.githubusercontent.com/Robin-Ahmed/my-html-app/main/AdVideo.mp";
-    video.play();
-    localStorage.setItem("introShown","true");
-    video.onended = closeIntro;
-}
-function closeIntro(){
-    document.getElementById("introOverlay").style.display = "none";
-}
 
 /* ===== SCROLL BUTTONS ===== */
 function scrollUp(){
