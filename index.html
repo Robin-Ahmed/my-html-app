@@ -223,16 +223,6 @@ header a{
     <button onclick="scrollDown()">⬇</button>
 </div>
 
-<!-- ===== LINK TO ADS.JS ===== -->
-<script src="ads.js"></script>
-
-<script>
-window.onload = () => {
-    loadVideos();
-    showIntroOnce();
-    startActiveStatus();
-};
-
 /* ===== INTRO LOGIC ===== */
 function showIntroOnce(){
     if(localStorage.getItem("introShown")) return;
